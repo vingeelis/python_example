@@ -1,0 +1,22 @@
+# yaml
+
+database:
+  host: 192.168.250.238
+  port: 3306
+  user: chekawa_admin
+  password: chekawa_admin
+  db: chekawa
+  charset: utf8
+  autocommit: True
+
+
+database_pool:
+  host: 192.168.250.238
+  port: 3306
+  user: chekawa_admin
+  password: chekawa_admin
+  db: chekawa
+  charset: utf8
+  autocommit: True
+  maxsize: 10
+  minsize: 1

@@ -1,0 +1,13 @@
+# yaml
+
+database:
+  host: 127.0.0.1
+  port: 5432
+  user: chekawa
+  password: RBd9dtDeYLfmXJf
+  database: chekawa
+
+
+www:
+  host: 0.0.0.0
+  port: 8086
