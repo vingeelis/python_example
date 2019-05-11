@@ -4,6 +4,12 @@
 import threading
 import asyncio
 
+'''
+This decorator is deprecated and is scheduled for removal in Python 3.10.
+
+This decorator should not be used for async def coroutines.
+'''
+
 
 @asyncio.coroutine
 def hello():
@@ -16,8 +22,8 @@ def hello_event():
     loop = asyncio.get_event_loop()
     tasks = [hello(), hello()]
     loop.run_until_complete(asyncio.wait(tasks))
-    # loop.run_until_complete(asyncio.wait(tasks))
     loop.close()
+
 
 @asyncio.coroutine
 def wget(host):
@@ -34,6 +40,7 @@ def wget(host):
         print('%s header > %s' % (host, line.decode('utf-8').rstrip()))
     writer.close()
 
+
 def wget_event():
     loop = asyncio.get_event_loop()
     tasks = [wget(host) for host in ['www.sina.com.cn', 'www.sohu.com', 'www.163.com']]
@@ -42,6 +49,5 @@ def wget_event():
 
 
 if __name__ == '__main__':
-    wget_event()
-
-
+    hello_event()
+    # wget_event()

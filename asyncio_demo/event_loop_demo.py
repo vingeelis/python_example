@@ -5,9 +5,13 @@ import time
 import asyncio
 
 
-@asyncio.coroutine
-def slow_operation(n):
-    yield from asyncio.sleep(1)
+# @asyncio.coroutine
+# def slow_operation(n):
+# asyncio.coroutine 修饰 def 被 async def 替代
+async def slow_operation(n):
+    # yield from 被 await 替代
+    # yield from asyncio.sleep(1)
+    await asyncio.sleep(1)
     print('Slow operation {} complete'.format(n))
 
 
