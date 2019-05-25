@@ -85,8 +85,7 @@ async def main():
     coro_mul = retrieve_mul(x, y)
     coro_div = retrieve_div(x, y)
     tasks = [asyncio.ensure_future(task) for task in [coro_add, coro_sub, coro_mul, coro_div, ]]
-    # 注意和 asyncio_demo04 的异同
-    # asyncio.wait(tasks) 也可以使用 asyncio.gather(*tasks) ,前者接受一个task列表，后者接收一堆task。
+    # asyncio.gather(*tasks) 也可以使用 asyncio.wait(tasks) ,前者接收一堆task，后者接收一个task列表。
     # 关于asyncio.gather和asyncio.wait官网的说明：
     # https://docs.python.org/3/library/asyncio-task.html#asyncio.gather
     return await asyncio.gather(*tasks)

@@ -5,10 +5,26 @@ import threading
 import asyncio
 
 '''
-This decorator is deprecated and is scheduled for removal in Python 3.10.
+@asyncio.coroutine: This decorator is deprecated and is scheduled for removal in Python 3.10.
 
 This decorator should not be used for async def coroutines.
 '''
+
+class Fab(object):
+    def __init__(self, max):
+        self.max = max
+        self.n, self.a, self.b = 0, 0, 1
+
+    def __iter__(self):
+        return self
+
+    def next(self):
+        if self.n < self.max:
+            r = self.b
+            self.a, self.b = self.b, self.a + self.b
+            self.n = self.n + 1
+            return r
+        raise StopIteration()
 
 
 @asyncio.coroutine
