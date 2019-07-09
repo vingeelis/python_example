@@ -14,13 +14,13 @@ class GetPath(object):
 
 
 def build_path():
-    # the dot in object(). will invoke the __str__ of the object
+    # the dot: '.' in object().attr invokes the __getattr__(self, attr) of the object
     path01 = GetPath().var.log.nginx
     print(path01)
 
 
 def append_path():
-    # the parentheses in object() will invoke the __call__ of the object
+    # the parentheses '()' in object(para) invokes the __call__(self, para) of the object
     path02 = GetPath()('var')('log')('nginx')
     print(path02)
 
