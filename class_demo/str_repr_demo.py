@@ -1,37 +1,36 @@
+#!/usr/bin/env python3
+#
+
+
 class Person(object):
-    name = ""
-    age = 0
+
+    def __init__(self, name="", age=0) -> None:
+        self.name = name
+        self.age = age
+
+    def __str__(self):
+        return 'Person(name=' + self.name + ', age=' + str(self.age) + ')'
 
 
 class PersonV1(Person):
 
-    def __init__(self, personName, personAge):
-        self.name = personName
-        self.age = personAge
-
-    def __str__(self):
-        return 'Person(name=' + self.name + ', age=' + str(self.age) + ')'
+    def __init__(self, name, age):
+        super().__init__(name, age)
 
     def __repr__(self):
         return {'name': self.name, 'age': self.age}
 
 
 class PersonV2(Person):
-    name = ""
-    age = 0
 
-    def __init__(self, personName, personAge):
-        self.name = personName
-        self.age = personAge
-
-    def __str__(self):
-        return 'Person(name=' + self.name + ', age=' + str(self.age) + ')'
+    def __init__(self, name, age):
+        super().__init__(name, age)
 
     def __repr__(self):
         return '{name:' + self.name + ', age:' + str(self.age) + '}'
 
 
-def printStr(p: PersonV1):
+def print_str(p: PersonV1):
     print("<in printStr>")
     print(p)
     print(p.__str__())
@@ -40,7 +39,7 @@ def printStr(p: PersonV1):
     print()
 
 
-def printReprV1(p: PersonV1):
+def print_repr_v1(p: PersonV1):
     print("<in printReprV1>")
     print(p.__repr__())
     print(type(p.__repr__()))
@@ -51,7 +50,7 @@ def printReprV1(p: PersonV1):
     print()
 
 
-def printReprV2(p: PersonV2):
+def print_repr_v2(p: PersonV2):
     print("<in printReprV2>")
     print(p.__repr__())
     print(type(p.__repr__()))
@@ -61,7 +60,7 @@ def printReprV2(p: PersonV2):
 
 if __name__ == '__main__':
     p1 = PersonV1('Pankaj', 34)
-    printStr(p1)
-    printReprV1(p1)
+    print_str(p1)
+    print_repr_v1(p1)
     p2 = PersonV2('Pankaj', 34)
-    printReprV2(p2)
+    print_repr_v2(p2)
