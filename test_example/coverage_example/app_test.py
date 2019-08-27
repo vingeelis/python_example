@@ -4,7 +4,7 @@
 
 import unittest
 
-from app import process_input
+from test_example.coverage_example.app import process_input
 
 
 class TestApp(unittest.TestCase):
@@ -28,15 +28,3 @@ class TestApp(unittest.TestCase):
     def tearDown(self) -> None:
         del self.a
         del self.b
-
-
-def suite():
-    """Test suite"""
-    suite = unittest.TestSuite()
-    suite.addTests(unittest.TestLoader().loadTestsFromTestCase(TestApp))
-
-    return suite
-
-
-if __name__ == '__main__':
-    unittest.TextTestRunner(verbosity=2).run(suite())

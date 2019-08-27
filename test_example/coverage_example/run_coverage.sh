@@ -1,8 +1,12 @@
 #!/usr/bin/bash
 
 
-# should run pip install coverage first
+# install coverage
+# pip install -U coverage
+
+# collect data
 coverage run app_test.py &>/dev/null
 echo "----------------------------------------------------------------------"
 
+# run report
 coverage report -m
