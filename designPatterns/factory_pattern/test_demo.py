@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 #
 
-from designpattern_example.factory_pattern.factorys import connect_to
+from designPatterns.factory_pattern.factorys import connect_to
 
 
 def xml_parse():

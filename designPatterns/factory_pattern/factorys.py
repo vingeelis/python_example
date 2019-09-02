@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 #
 
-from designpattern_example.factory_pattern.Connectors import JSONConnector, XMLConnector
+from designPatterns.factory_pattern.Connectors import JSONConnector, XMLConnector
 
 
 def connector_factory(filepath):
