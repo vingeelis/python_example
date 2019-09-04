@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 #
 
+# pip install pyjwt
 import jwt
 import time
 
