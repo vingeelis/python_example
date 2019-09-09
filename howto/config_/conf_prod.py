@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 #
 
-from howto.config import Config
+from howto.config_ import Config
 
 
 class ConfigProd(object, metaclass=Config):
