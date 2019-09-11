@@ -24,7 +24,6 @@ def pick_faces(imagePath, cascPath="haarcascade_frontalface_default.xml"):
 
 
 if __name__ == '__main__':
-    # pick_faces(imagePath="./images/abba.png")
-    # pick_faces(imagePath="images./DSC_0298.JPG")
-    pick_faces(imagePath="images./th.jpg")
+    # pick_faces(imagePath="./abba.png")
+    pick_faces(imagePath="./th.jpg")
 

@@ -1,8 +1,7 @@
 import cv2
-import numpy
 
 
-image = cv2.imread("images/clouds.jpg")
+image = cv2.imread("./clouds.jpg")
 gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 cv2.imshow("Over the Clouds", image)
 cv2.imshow("Over the Clouds - gray", gray_image)
