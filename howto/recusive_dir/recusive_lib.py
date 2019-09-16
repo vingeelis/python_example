@@ -2,7 +2,7 @@
 
 
 import sys
-from os import listdir
+from os import listdir, linesep
 from os.path import dirname, basename, isdir, isfile, abspath, join as pathjoin
 
 '''
@@ -10,15 +10,15 @@ This script is intended to implement the Step 4 of : https://wiki.vip.corp.ebay.
 '''
 
 
-def replace_lib(filepath, dst):
+def replace_lib(file_path, lib_path):
     src = "sys.path.append('/ebay/cassinfra/lib')"
-    dst = "sys.path.append('%s')" % dst
-    if filepath.endswith(".py"):
-        f = open(filepath)
+    lib_path = "sys.path.append('%s')" % lib_path + '\n' + "sys.path.append('/ebay/search/lib')"
+    if file_path.endswith(".py"):
+        f = open(file_path)
         r = f.read()
-        s = r.replace(src, dst)
+        s = r.replace(src, lib_path)
         f.close()
-        f = open(filepath, 'w')
+        f = open(file_path, 'w')
         f.write(s)
         f.close()
 
@@ -38,6 +38,4 @@ def recusive_lib(root_path, depth):
 
 
 if __name__ == '__main__':
-    root_path = './bin/'
-    depth = 1
-    recusive_lib(root_path, depth)
+    recusive_lib('./bin/', 1)
