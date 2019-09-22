@@ -1,8 +1,6 @@
 import argparse
-import textwrap
-from os.path import basename
-
 import math
+import textwrap
 
 
 def base_demo():
@@ -79,72 +77,6 @@ def fromfile_prefix_chars():
     parser = argparse.ArgumentParser(fromfile_prefix_chars='@')
     parser.add_argument('-f')
     args = parser.parse_args(['-f', 'foo', '@args.txt'])
-    print(args)
-
-
-def action_demo():
-    # 'store'
-    # This just stores the argument’s value. This is the default action.
-    # For example:
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--foo')
-    args = parser.parse_args('--foo foo01'.split())
-    print(args)
-
-    # 'store_const'
-    # This stores the value specified by the const keyword argument.
-    # The 'store_const' action is most commonly used with optional arguments that specify some sort of flag.
-    # For example:
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--foo', action='store_const', const='foo02')
-    args = parser.parse_args(['--foo'])
-    print(args)
-
-    # 'store_true' and 'store_false'
-    # These are special cases of 'store_const' used for storing the values True and False respectively.
-    # In addition, they create default values of False and True respectively.
-    # For example:
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--foo', action='store_true')
-    parser.add_argument('--bar', action='store_false')
-    parser.add_argument('--mon', action='store_false')
-    args = parser.parse_args('--foo --bar'.split())
-    print(args)
-
-    # 'append'
-    # This stores a list, and appends each argument value to the list.
-    # This is useful to allow an option to be specified multiple times.
-    # Example usage:
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--foo', action='append')
-    args = parser.parse_args('--foo 1 --foo 2'.split())
-    print(args)
-
-    # 'append_const'
-    # This stores a list, and appends the value specified by the const keyword argument to the list.
-    # (Note that the const keyword argument defaults to None.)
-    # The 'append_const' action is typically useful when multiple arguments need to store constants to the same list.
-    # For example:
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--str', dest='types', action='append_const', const=str)
-    parser.add_argument('--int', dest='types', action='append_const', const=int)
-    args = parser.parse_args('--str --str --int'.split())
-    print(args)
-
-    # 'count'
-    # This counts the number of times a keyword argument occurs.
-    # For example, this is useful for increasing verbosity levels:
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--verbose', '-v', action='count')
-    args = parser.parse_args(['-vvv'])
-    print(args)
-
-    # 'version'
-    # This expects a version= keyword argument in the add_argument() call,
-    # and prints version information and exits when invoked:
-    parser = argparse.ArgumentParser(prog=basename(__file__))
-    parser.add_argument('--version', action='version', version='%(prog)s 2.0')
-    args = parser.parse_args(['--version'])
     print(args)
 
 
@@ -398,7 +330,6 @@ if __name__ == '__main__':
     # parents_demo()
     # prefix_char_demo()
     # fromfile_prefix_chars()
-    # action_demo()
     # nargs_demo()
     # const_demo()
     # default_demo()
