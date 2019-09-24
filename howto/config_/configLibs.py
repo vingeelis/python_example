@@ -1,4 +1,4 @@
-from howto.config_.config_loader import ConfigLoaderDatabases
+from howto.config_.configLoader import ConfigLoaderDatabases
 
 
 class Config(object):
