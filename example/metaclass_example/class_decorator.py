@@ -2,10 +2,10 @@
 # -*- coding: utf-8 -*-
 
 
-
 def decorator(cls):
     class NewClass(cls):
         attr = 100
+
     return NewClass
 
 
@@ -22,7 +22,6 @@ class Bar:
 @decorator
 class Qux:
     pass
-
 
 
 print(Foo.attr)

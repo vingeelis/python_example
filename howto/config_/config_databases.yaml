@@ -1,0 +1,33 @@
+# the yaml file should be stored in dir: config
+
+
+prod:
+  databases:
+    mysql:
+      host: 202.96.209.133
+      port: 3306
+      username: scott
+      database: template
+      password: 01D7gr1XplScpmRq
+    postgresql:
+      host: 202.96.209.5
+      port: 55432
+      username: spitzer
+      database: nasa
+      password: pr<X7(IRe)rM_sb#
+
+
+dev:
+  databases:
+    mysql:
+      host: 192.168.0.123
+      port: 3306
+      username: root
+      database:
+      password: 123456
+    postgresql:
+      host: 192.168.0.124
+      port: 55432
+      username: postgres
+      database: postgres
+      password: 654321
