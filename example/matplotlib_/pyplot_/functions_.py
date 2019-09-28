@@ -38,6 +38,8 @@ def natural_log_():
 def sinusoidal_():
     x = np.linspace(-np.pi, np.pi, 100)
     y = np.sin(x)
+    print(type(x))
+    print(type(y))
     plt.title("正弦函数")
     plt.plot(x, y)
     plt.show()
