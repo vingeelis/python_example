@@ -7,11 +7,12 @@ def base_demo():
     dash_79 = '-' * 79
 
     """\
-    prog: program name
-    formatter_class: Passing RawDescriptionHelpFormatter as formatter_class= indicates that description and epilog are already correctly formatted and should not be line-wrapped:
-    description: display in the --help text after usage section
-    epilog: display in the --help text at the bottom
+    @prog: program name
+    @formatter_class: Passing RawDescriptionHelpFormatter as formatter_class= indicates that description and epilog are already correctly formatted and should not be line-wrapped:
+    @description: display in the --help text after usage section
+    @epilog: display in the --help text at the bottom
     """
+
     __description = f"""\
     {dash_79}
     The argparse module makes it easy to write user-friendly command-line interfaces. 
@@ -32,7 +33,7 @@ def base_demo():
     )
     parser.add_argument('-f', '--foo', nargs='?', default='foo01', type=str, help='foo help')
     parser.add_argument('bar', nargs='*', default='bar01', type=str, help='bar help')
-    parser.print_help()
+    # parser.print_help()
 
     args = parser.parse_args(['--foo', 'foo01', 'bar01'])
     print(args)
@@ -77,62 +78,6 @@ def fromfile_prefix_chars():
     parser = argparse.ArgumentParser(fromfile_prefix_chars='@')
     parser.add_argument('-f')
     args = parser.parse_args(['-f', 'foo', '@args.txt'])
-    print(args)
-
-
-def nargs_demo():
-    # N (an integer). N arguments from the command line will be gathered together into a list. For example:
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--foo', nargs=2)
-    parser.add_argument('bar', nargs=1)
-    args = parser.parse_args('c --foo a b'.split())
-    print(args)
-
-    # '?'.
-    # One argument will be consumed from the command line if possible,
-    # and produced as a single item. If no command-line argument is present,
-    # the value from default will be produced. Note that for optional arguments,
-    # there is an additional case - the option string is present but not followed by a command-line argument.
-    # In this case the value from const will be produced. Some examples to illustrate this:
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--foo', nargs='?', const='c', default='d')
-    parser.add_argument('bar', nargs='?', default='d')
-    args = parser.parse_args(['xx', '--foo', 'yy'])
-    print(args)
-    args = parser.parse_args(['xx', '--foo'])
-    print(args)
-    args = parser.parse_args([])
-    print(args)
-
-    # '*'.
-    # All command-line arguments present are gathered into a list.
-    # Note that it generally doesn’t make much sense to have more than one positional argument with nargs='*',
-    # but multiple optional arguments with nargs='*' is possible.
-    # For example:
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--foo', nargs='*')
-    parser.add_argument('--bar', nargs='*')
-    parser.add_argument('mon', nargs='*')
-    args = parser.parse_args('a b --foo x y --bar 1 2'.split())
-    print(args)
-
-    # '+'.
-    # Just like '*', all command-line args present are gathered into a list.
-    # Additionally, an error message will be generated if there wasn’t at least one command-line argument present.
-    # For example:
-    parser = argparse.ArgumentParser()
-    parser.add_argument('foo', nargs='+')
-    args = parser.parse_args(['a', 'b'])
-    print(args)
-
-    # argparse.REMAINDER.
-    # All the remaining command-line arguments are gathered into a list.
-    # This is commonly useful for command line utilities that dispatch to other command line utilities:
-    parser = argparse.ArgumentParser(prog='PROG')
-    parser.add_argument('--foo')
-    parser.add_argument('command')
-    parser.add_argument('args', nargs=argparse.REMAINDER)
-    args = parser.parse_args('--foo foo01 cmd01 --arg1 xx yy'.split())
     print(args)
 
 
@@ -264,76 +209,14 @@ def required_demo():
     print(args)
 
 
-def metavar_demo():
-    # When ArgumentParser generates help messages, it needs some way to refer to each expected argument.
-    # By default, ArgumentParser objects use the dest value as the “name” of each object.
-    # By default, for positional argument actions, the dest value is used directly,
-    # and for optional argument actions, the dest value is uppercased.
-    # So, a single positional argument with dest='bar' will be referred to as bar.
-    # A single optional argument --foo that should be followed by a single command-line argument will be referred to as FOO. An example:
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--foo')
-    parser.add_argument('bar')
-    args = parser.parse_args('X --foo Y'.split())
-    print(args)
-    parser.print_help()
-
-    # An alternative name can be specified with metavar:
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--foo', metavar='YYY')
-    parser.add_argument('bar', metavar='XXX')
-    args = parser.parse_args('X --foo Y'.split())
-    print(args)
-    parser.print_help()
-
-    # Note that metavar only changes the displayed name -
-    # the name of the attribute on the parse_args() object is still determined by the dest value.
-    # Different values of nargs may cause the metavar to be used multiple times.
-    # Providing a tuple to metavar specifies a different display for each of the arguments:
-    parser = argparse.ArgumentParser()
-    parser.add_argument('-x', nargs=2)
-    parser.add_argument('--foo', nargs=2, metavar=('bar', 'mon'))
-    parser.print_help()
-
-
-def dest_demo():
-    # Most ArgumentParser actions add some value as an attribute of the object returned by parse_args().
-    # The name of this attribute is determined by the dest keyword argument of add_argument().
-    # For positional argument actions, dest is normally supplied as the first argument to add_argument():
-    parser = argparse.ArgumentParser()
-    parser.add_argument('bar')
-    args = parser.parse_args(['XXX'])
-    print(args)
-
-    # For optional argument actions, the value of dest is normally inferred from the option strings.
-    # ArgumentParser generates the value of dest by taking the first long option string and stripping away the initial -- string.
-    # If no long option strings were supplied, dest will be derived from the first short option string by stripping the initial - character.
-    # Any internal - characters will be converted to _ characters to make sure the string is a valid attribute name.
-    # The examples below illustrate this behavior:
-    parser = argparse.ArgumentParser()
-    parser.add_argument('-f', '--foo-bar', '--foo')
-    parser.add_argument('-x', '-y')
-    args = parser.parse_args('-f 1 -x 2'.split())
-    print(args)
-    args = parser.parse_args('--foo 1 -y 2'.split())
-    print(args)
-
-    # dest allows a custom attribute name to be provided:
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--foo', dest='bar')
-    args = parser.parse_args('--foo XXX'.split())
-    print(args)
-
-
 if __name__ == '__main__':
-    # base_demo()
-    # parents_demo()
-    # prefix_char_demo()
-    # fromfile_prefix_chars()
-    # nargs_demo()
-    # const_demo()
-    # default_demo()
-    # type_demo()
-    # required_demo()
-    # metavar_demo()
+    base_demo()
+    parents_demo()
+    prefix_char_demo()
+    fromfile_prefix_chars()
+    const_demo()
+    default_demo()
+    type_demo()
+    required_demo()
+    metavar_demo()
     dest_demo()

@@ -7,8 +7,9 @@ def action_store():
     # This just stores the argument’s value. This is the default action.
     # For example:
     parser = argparse.ArgumentParser()
+    parser.add_argument('--bar', action='store')
     parser.add_argument('--foo')
-    args = parser.parse_args('--foo foo01'.split())
+    args = parser.parse_args('--bar bar01 --foo foo01'.split())
     print(args)
 
 
@@ -48,19 +49,6 @@ def action_append():
     print(args)
 
 
-def action_append_const():
-    # 'append_const'
-    # This stores a list, and appends the value specified by the const keyword argument to the list.
-    # (Note that the const keyword argument defaults to None.)
-    # The 'append_const' action is typically useful when multiple arguments need to store constants to the same list.
-    # For example:
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--str', dest='types', action='append_const', const=str)
-    parser.add_argument('--int', dest='types', action='append_const', const=int)
-    args = parser.parse_args('--str --str --int'.split())
-    print(args)
-
-
 def action_count():
     # 'count'
     # This counts the number of times a keyword argument occurs.
@@ -82,4 +70,4 @@ def action_version_():
 
 
 if __name__ == '__main__':
-    action_store_true()
+    action_store()
