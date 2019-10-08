@@ -181,7 +181,7 @@ def run_tf(train_x, test_x: np.ndarray):
         'con1_w': tf.Variable(tf.random_normal([kernel_h, kernel_w, depth_in, depth_out_l1])),
         'con2_w': tf.Variable(tf.random_normal([kernel_h, kernel_w, depth_out_l1, depth_out_l2])),
         'fc_w1': tf.Variable(tf.random_normal([int((image_size * image_size / 16) * depth_out_l2), 1024])),
-        'fc_w2': tf.Variable(tf.random_normal([1024, 512])),
+        'fc_w2': tf.Variable(tf.random_normal([1024, 512])),c
         'out': tf.Variable(tf.random_normal([512, n_classes])),
     }
 
