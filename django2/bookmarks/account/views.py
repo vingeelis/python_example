@@ -1,8 +1,9 @@
 from django.http import HttpResponse, HttpRequest
 from django.shortcuts import render
+from django.forms.models import BaseModelFormSet
 from django.contrib.auth import authenticate, login, models
 from django.contrib.auth.decorators import login_required
-from .forms import LoginForm
+from .forms import LoginForm, UserRegistrationForm
 
 
 # Create your views here.
@@ -36,3 +37,17 @@ def dashboard(request):
                   'account/dashboard.html',
                   {'section': 'dashboard'},
                   )
+
+
+def register(request: HttpRequest):
+    if request.method == 'POST':
+        user_form = UserRegistrationForm(request.POST)
+        if user_form.is_valid():
+            # create a new user object but avoid saving it yet
+            new_user: BaseModelFormSet = user_form.save(commit=False)
+            new_user.set_password(user_form.cleaned_data['password'])
+            new_user.save()
+            return render(request, 'account/register_done.html', {'new_user': new_user})
+    else:
+        user_form = UserRegistrationForm()
+    return render(request, 'account/register.html', {'user_form': user_form})
