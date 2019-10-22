@@ -8,7 +8,7 @@ class ConfigLoader(object):
 
 class ConfigLoaderDatabases(ConfigLoader):
 
-    config_path = os.path.join(os.getcwd(), 'config_databases.yaml')
+    config_path = os.path.join(os.getcwd(), 'config_databases.yml')
     configParser = None
 
     @classmethod
