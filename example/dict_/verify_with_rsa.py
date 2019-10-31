@@ -5,19 +5,6 @@ from urllib.parse import parse_qs
 import rsa
 
 
-# configs
-
-
-# constants
-
-
-# variables
-
-
-# functions
-
-
-# instances
 
 
 def demo1():

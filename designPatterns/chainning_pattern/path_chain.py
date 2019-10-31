@@ -1,13 +1,13 @@
 class GetPath(object):
     def __init__(self, path='') -> None:
-        super().__init__()
+        # super().__init__()
         self._path = path
 
     def __getattr__(self, path):
-        return GetPath('%s/%s' % (self._path, path))
+        return GetPath('%s/%s' % (self, path))
 
     def __call__(self, path):
-        return GetPath('%s/%s' % (self._path, path))
+        return GetPath('%s/%s' % (self, path))
 
     def __str__(self):
         return self._path
@@ -26,5 +26,5 @@ def append_path():
 
 
 if __name__ == '__main__':
-    build_path()
+    # build_path()
     append_path()

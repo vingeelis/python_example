@@ -1,23 +1,3 @@
-#!/usr/bin/env python3
-#
-
-import json
-
-
-# configs
-
-
-# constants
-
-
-# variables
-
-
-# functions
-
-
-# instances
-
 
 def contains(haystack, needle):
     """

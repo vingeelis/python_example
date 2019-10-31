@@ -40,12 +40,10 @@ def demo02():
     print(f"copyright b64decoded string: {cpr_de.decode()}")
 
 
-
-
 if __name__ == '__main__':
     # raw string
     print(f"copyright raw string: {_copyright}")
-    print(f"{'-'*79}")
+    print(f"{'-' * 79}")
     demo01()
-    print(f"{'-'*79}")
+    print(f"{'-' * 79}")
     demo02()

@@ -8,7 +8,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from flask import Flask, g
 from flask_restful import reqparse, Api, Resource
 from flask_httpauth import HTTPTokenAuth
-from example.flask_example.flask_rest_api.flask_response import FResponse as fresp
+from howto.flask_ import FResponse as fresp
 
 # Flask 相关变量
 app = Flask(__name__)

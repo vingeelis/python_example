@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-#
 from types import MethodType
 
 
@@ -18,14 +16,14 @@ def set_score(self, score):
 if __name__ == '__main__':
     s = Student()
 
-    # 实例属性
+    # dynamic binding instance attr
     s.name = 'alice'
     print(s.name)
 
-    # 实例方法
+    # dynamic binding instance method
     s.set_age = MethodType(set_age, s)
     s.set_age(13)
     print(s.age)
 
-    # 类方法
+    # dynamic binding class method
     Student.set_score = set_score
