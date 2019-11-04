@@ -22,5 +22,39 @@ urlpatterns = [
 
     # register
     path('register/', views.register, name='register'),
-    path('edit', views.edit, name='edit',),
+    path('edit/', views.edit, name='edit',),
 ]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
