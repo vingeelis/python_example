@@ -21,18 +21,18 @@ def exp(child, prompt, inputs, interval):
 
 def main():
     # 创建一个子进程(child)去连接12.1.30.15，记录日志，并设置适当的tty窗口大小
-    child = pexpect.spawn('/bin/bash', ['-c', 'ssh sx02@12.1.30.15'])
+    child = pexpect.spawn('/bin/bash', ['-c', 'ssh user01@127.0.0.1'])
     child.logfile = open(log_file, 'wb')
     child.setwinsize(62, 206)
-    exp(child, 'password', 'ajzq9441770', 0.1)
+    exp(child, 'password', '123456', 0.1)
 
     # 自动与UTM交互，登录到目标机器
     exp(child, 'input_demo', '1\r', 0.1)
     exp(child, 'input_demo', '1\r', 0.1)
     exp(child, 'input_demo', '1\r', 0.1)
     child.sendcontrol('u')
-    exp(child, 'account', 'sixieops', 0.1)
-    exp(child, 'passwd', 'Sixie971', 0.1)
+    exp(child, 'account', 'user01', 0.1)
+    exp(child, 'passwd', 'passwd01', 0.1)
 
     # 将子进程(child)从后台切到前台
     child.interact()

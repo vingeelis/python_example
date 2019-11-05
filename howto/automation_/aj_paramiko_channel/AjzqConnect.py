@@ -7,10 +7,10 @@ from time import sleep
 from os import path
 
 UTMHOST = {
-    'hostname': '12.1.30.15',
+    'hostname': '',
     'port': 22,
-    'username': 'sx02',
-    'password': 'ajzq9441770',
+    'username': '',
+    'password': '',
 }
 
 DSTHOST = {

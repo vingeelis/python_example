@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
 COMM=/usr/bin/MotionPro
-VPN_IP="180.167.70.86:10443"
-USERNAME="sx"
-PASSWORD="ajzq3301"
+VPN_IP="127.0.0.1:10443"
+USERNAME="user01"
+PASSWORD="passwd01"
 
 
 function vpn_start() {
