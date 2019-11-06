@@ -4,7 +4,7 @@
 
 import unittest
 
-from example.test.coverage_example.app import process_input
+from howto.test_.coverage_example.app import process_input
 
 
 class TestApp(unittest.TestCase):

@@ -12,10 +12,10 @@ def runner_run():
 
 
 def run_runner():
-    from example.test.unittest_example import TestDict as unittest_example_TestDict
-    from example.test import TestApp
-    from example.test import TestDict as relatively_import_TestDict
-    from example.test import TestStringMethods
+    from howto.test_.unittest_example import TestDict as unittest_example_TestDict
+    from howto.test_ import TestApp
+    from howto.test_ import TestDict as relatively_import_TestDict
+    from howto.test_ import TestStringMethods
 
     loader = unittest.TestLoader()
     all_cases = (unittest_example_TestDict, TestApp, relatively_import_TestDict, TestStringMethods)
