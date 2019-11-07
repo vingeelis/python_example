@@ -8,7 +8,7 @@ from skimage import color, data, transform
 from sklearn.utils import shuffle
 import keras
 from keras.utils import np_utils
-from example.isinstance_ import iscastable
+from example_.isinstance_ import iscastable
 import tensorflow as tf
 
 BASE_PATH = 'C://var//images//Fruit-Images-Dataset-master'

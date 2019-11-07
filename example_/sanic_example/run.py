@@ -5,7 +5,7 @@
 :reference: https://sanic.readthedocs.io
 '''
 
-from example.sanic_example.readthedocs import app
+from example_.sanic_example.readthedocs import app
 
 '''
 启动脚本

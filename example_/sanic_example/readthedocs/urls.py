@@ -4,7 +4,7 @@
 
 from sanic import Sanic
 from .views_api import bp_api
-from example.sanic_example.readthedocs import bp_static
+from example_.sanic_example.readthedocs import bp_static
 
 # 路由
 '''
