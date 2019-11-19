@@ -4,6 +4,7 @@
 
 class Meta(type):
     def __init__(cls, name, bases, dct):
+        super().__init__(cls)
         cls.attr = 100
 
 

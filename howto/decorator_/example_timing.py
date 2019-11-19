@@ -28,4 +28,5 @@ def some_func(num_times):
         sum([i ** 2 for i in range(10000)])
 
 
-some_func(1000)
+if __name__ == '__main__':
+    some_func(1000)

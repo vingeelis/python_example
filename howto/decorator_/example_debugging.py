@@ -26,16 +26,17 @@ def greeting(name, first_time=False):
         return f"Hi {name}, long time no see, how are you!"
 
 
-greeting('alice')
-greeting('alice', first_time=True)
+if __name__ == '__main__':
+    greeting('alice')
+    greeting('alice', first_time=True)
 
-# factorial = debug(lambda n: math.factorial(n))
-factorial = debug(math.factorial)
-
-
-def approximate_e(terms=18):
-    return sum(1 / factorial(n) for n in range(terms))
+    # factorial = debug(lambda n: math.factorial(n))
+    factorial = debug(math.factorial)
 
 
-print(approximate_e(5))
-print(approximate_e(10))
+    def approximate_e(terms=18):
+        return sum(1 / factorial(n) for n in range(terms))
+
+
+    print(approximate_e(5))
+    print(approximate_e(10))

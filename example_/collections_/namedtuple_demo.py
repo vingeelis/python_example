@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
 #
-
+import warnings
 from collections import namedtuple
 import json
+
+"""warning: namedtuple is obsolete, please use dataclasses.dataclass instead"""
 
 
 def cprint(args=None):
