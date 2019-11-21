@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 
-from .example_debugging import debug
-from .example_timing import timer
+from ._debugging import debug
+from ._timing import timer
 
 
 class Circle(object):
