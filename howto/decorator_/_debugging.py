@@ -13,6 +13,7 @@ def debug(func):
         print(f"calling {func.__name__}({signature}): ")
         value = func(*args, **kwargs)
         print(f"{func.__name__!r} returned: {value!r}")
+        print()
         return value
 
     return wrapper

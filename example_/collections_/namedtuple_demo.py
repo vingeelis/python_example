@@ -2,6 +2,7 @@
 #
 import warnings
 from collections import namedtuple
+from dataclasses import dataclass
 import json
 
 """warning: namedtuple is obsolete, please use dataclasses.dataclass instead"""

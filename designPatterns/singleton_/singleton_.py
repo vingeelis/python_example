@@ -20,7 +20,7 @@ class Singleton(type):
 
 def singleton(cls):
     """Make a class a Singleton class (only one instance)
-    bye defining like:
+    by defining like:
 
         @singleton
         class ClassA():
