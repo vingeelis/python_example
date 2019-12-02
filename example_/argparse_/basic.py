@@ -35,7 +35,8 @@ def base_demo():
     parser.add_argument('bar', nargs='*', default='bar01', type=str, help='bar help')
     # parser.print_help()
 
-    args = parser.parse_args(['--foo', 'foo01', 'bar01'])
+    # args = parser.parse_args(['--foo', 'foo01', 'bar01'])
+    args = parser.parse_args()
     print(args)
 
 
@@ -211,12 +212,11 @@ def required_demo():
 
 if __name__ == '__main__':
     base_demo()
-    parents_demo()
-    prefix_char_demo()
-    fromfile_prefix_chars()
-    const_demo()
-    default_demo()
-    type_demo()
-    required_demo()
-    metavar_demo()
-    dest_demo()
+    # parents_demo()
+    # prefix_char_demo()
+    # fromfile_prefix_chars()
+    # const_demo()
+    # default_demo()
+    # type_demo()
+    # required_demo()
+
