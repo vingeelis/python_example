@@ -2,30 +2,48 @@ import warnings
 import functools
 
 
-def deprecated(func):
+def deprecated(_func=None, *, new_fn=None):
     """This is a decorator which can be used to mark functions as deprecated.
-    It will result in a warning being emitted when the function is used."""
+    It will result in a warning being emitted when the function is used.
+    using like
 
-    @functools.wraps(func)
-    def new_func(*args, **kwargs):
-        warnings.simplefilter('always', DeprecationWarning)
-        warnings.warn("Call to deprecated function {}.".format(func.__name__),
-                      category=DeprecationWarning,
-                      stacklevel=2)
-        warnings.simplefilter('default', DeprecationWarning)
-        return func(*args, **kwargs)
+        @deprecated
+        def old_func():
+            pass
+    or
+        @deprecated(new_fn=new_func)
+        def old_func():
+            pass
 
-    return new_func
+    """
+
+    def wrapper(func):
+        @functools.wraps(func)
+        def new_func(*args, **kwargs):
+            warnings.simplefilter('always', DeprecationWarning)
+            warnings.warn("The '{}' method is deprecated, "
+                          "use '{}' instead".format(func.__name__, new_fn),
+                          category=DeprecationWarning,
+                          stacklevel=2)
+
+            return func(*args, **kwargs)
+
+        return new_func
+
+    if _func is None:
+        return wrapper
+    else:
+        return wrapper(_func)
 
 
-@deprecated
 def some_old_function(x, y):
     return x + y
 
 
 class demo_02(object):
-    @deprecated
+    @deprecated(new_fn=some_old_function)
     def some_old_method(self, x, y):
+        warnings.warn('deprecated', DeprecationWarning, 2)
         return x + y
 
 

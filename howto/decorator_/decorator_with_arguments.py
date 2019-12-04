@@ -23,4 +23,10 @@ def say_hi(name):
     print(f"hello {name}")
 
 
+@decorator
+def say_bye(name):
+    print(f"bye {name}")
+
+
 say_hi('world')
+say_bye('world')

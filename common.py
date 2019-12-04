@@ -3,6 +3,27 @@ import sys
 import datetime
 
 
+def singleton(cls):
+    """Make a class a Singleton class (only one instance)
+    by defining like:
+
+        @singleton
+        class ClassA():
+            pass
+
+    to make it singleton
+    """
+
+    @functools.wraps(cls)
+    def wrapper(*args, **kwargs):
+        if not wrapper.instance:
+            wrapper.instance = cls(*args, **kwargs)
+        return wrapper.instance
+
+    wrapper.instance = None
+    return wrapper
+
+
 def epoch_to_human_readable(epoch_in_nanos):
     """how to get current timestamps in nanosencond
 

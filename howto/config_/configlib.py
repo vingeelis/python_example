@@ -4,6 +4,7 @@ import textwrap
 from dataclasses import dataclass
 from os.path import realpath
 import yaml
+import common
 
 PROJECT_NAME = "Cassinfra3"
 
@@ -36,30 +37,10 @@ def get_args():
         description=textwrap.dedent(__description),
         epilog=textwrap.dedent(__epilog),
     )
-    parser.add_argument('-c', '--conf_file', nargs='?', type=str, help='config file')
+    parser.add_argument('-f', '--file', nargs='?', type=str, help='path of config file')
+    parser.add_argument('-v', '--verbose', nargs='?', help='verbose mode which can got more detailed output')
 
     return parser.parse_args()
-
-
-# class Loader(object):
-#
-#     def __init__(self) -> None:
-#         _config = f'{PROJECT_NAME}_CONFIG'
-#
-#         config_path = None
-#
-#         print(_config)
-#         print(_config in os.environ)
-#
-#         # getting var from Environment Variables
-#         if _config in os.environ:
-#             config_path = os.environ[_config]
-#
-#         # getting var from CLI arguments
-#         if get_args().conf_file:
-#             config_path = get_args().conf_file
-#
-#         print(config_path)
 
 
 class ConfigLoader(object, ):
@@ -106,24 +87,37 @@ class Database:
     auto_commit: bool
 
 
+@dataclass
+class Cms:
+    url: str
+    userid: str
+    token_file: str
+
+
+@common.singleton
 class Config(object):
     def __init__(self, __profile_user=None, ):
         self.__profile_user = __profile_user
         self.__parser = ConfigLoader.load(__profile_user)
 
     @property
-    # def database(self): return self.__parser.get('database')
-    def database(self):
-        return Database(**self.__parser.get('database'))
+    def cassinfra(self): return Cassinfra(**self.__parser.get('cassinfra'))
 
     @property
-    def cms(self):
-        return self.__parser.get('cms')
+    def database(self): return Database(**self.__parser.get('database'))
 
     @property
-    def cassinfra_rc(self):
-        return self.__parser.get('cassinfra_rc')
+    def cms(self): return Cms(**self.__parser.get('cms'))
 
 
 if __name__ == '__main__':
-    print(Config().database.host)
+    config1 = Config()
+    config2 = Config()
+    print(id(config1))
+    print(id(config2))
+    print(config1 == config2)
+
+    # config = Config()
+    # print(config.cassinfra)
+    # print(config.database)
+    # print(config.cms)
