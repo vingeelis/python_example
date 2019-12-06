@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+export PYTHONPATH="/home/$(whoami)/gitrepo/python_example"
+
 # test file patterns are like test_*.py
 # test class patterns are like Test* and mustn't have __init__() method
 # test function/case patterns are like test_

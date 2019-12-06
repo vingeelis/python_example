@@ -1,6 +1,6 @@
 import unittest
 
-from howto.test_.unittest_example import Dict
+from howto.test_.src.mydict import Dict
 
 
 class TestDict(unittest.TestCase):

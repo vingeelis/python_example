@@ -10,4 +10,6 @@
 # pip install -U pytest
 
 # run test
-python -m unittest mydict_test.TestDict
+# shellcheck disable=SC2034
+export PYTHONPATH="/home/$(whoami)/gitrepo/python_example"
+python -m unittest test_mydict.TestDict

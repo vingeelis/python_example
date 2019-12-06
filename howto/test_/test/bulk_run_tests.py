@@ -2,23 +2,21 @@ import unittest
 import xmlrunner
 
 
-def runner_run():
+def run_by_discover():
     suite = unittest.TestSuite()
-    all_cases = unittest.defaultTestLoader.discover('./', '*_test.py')
+    all_cases = unittest.defaultTestLoader.discover('./', 'test_*.py')
     for cases in all_cases:
         suite.addTests(cases)
     runner = xmlrunner.XMLTestRunner(output="report")  # output directory = "report"
     runner.run(suite)
 
 
-def run_runner():
-    from howto.test_.unittest_example import TestDict as unittest_example_TestDict
-    from howto.test_ import TestApp
-    from howto.test_ import TestDict as relatively_import_TestDict
-    from howto.test_ import TestStringMethods
+def run_by_add_cases():
+    from howto.test_.unittest_.test_mydict import TestDict
+    from howto.test_.coverage_.test_app import TestApp
 
     loader = unittest.TestLoader()
-    all_cases = (unittest_example_TestDict, TestApp, relatively_import_TestDict, TestStringMethods)
+    all_cases = (TestDict, TestApp,)
     suite = unittest.TestSuite()
     for cases in all_cases:
         tests = loader.loadTestsFromTestCase(cases)
@@ -28,5 +26,5 @@ def run_runner():
 
 
 if __name__ == '__main__':
-    runner_run()
-    # run_runner()
+    run_by_discover()
+    # run_by_add_cases()

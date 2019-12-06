@@ -1,8 +1,9 @@
 def decorator(func):
     def wrapper(*args, **kwargs):
         print("Something is happening before the function is called.")
-        func(*args, **kwargs)
+        render = func(*args, **kwargs)
         print("Something is happening after the function is called.")
+        return render
 
     return wrapper
 
@@ -10,6 +11,8 @@ def decorator(func):
 @decorator
 def say_hi(name):
     print(f"hello {name}")
+    return True
 
 
-say_hi('world')
+ru_ok = say_hi('world')
+print(ru_ok)
