@@ -1,14 +1,14 @@
 cassinfra:
-  CASSINFRA_ROOT: /ebay/cassinfra3
-  CASSINFRA_BACKUP: /ebay/backups/cassinfra3
+  CASSINFRA_ROOT: /com/cassinfra3
+  CASSINFRA_BACKUP: /com/backups/cassinfra3
 database:
   host: 192.168.1.11
   port: 3306
-  user: root
+  user: nasa
   password: 1234567
-  name: searchops
+  name: nasa
   auto_commit: false
 cms:
-  url: https://armt.vip.ebay.com/ar/soa/consumer/
-  userid: _UDNS_MIT
-  token_file: _udns_mit.token
+  url: https://example.com/
+  userid: _USER_ID_1234
+  token_file: _USER_ID_1234.token
