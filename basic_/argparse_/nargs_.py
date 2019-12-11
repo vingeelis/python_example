@@ -70,8 +70,8 @@ def nargs_using_remainder():
 
 
 if __name__ == '__main__':
-    # nargs_using_num()
+    nargs_using_num()
     # nargs_using_question_mark()
     # nargs_using_asterisk()
     # nargs_using_plus()
-    nargs_using_remainder()
+    # nargs_using_remainder()
