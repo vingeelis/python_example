@@ -24,3 +24,4 @@ if __name__ == '__main__':
     persons = Person.schema().loads(persons_json, many=True)
     print(persons)
     print(type(persons))
+   
