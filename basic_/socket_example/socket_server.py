@@ -35,5 +35,3 @@ while True:
             print('client: {}, quiting....'.format(addr))
             conn.send(''.encode())
             break
-
-server.close()

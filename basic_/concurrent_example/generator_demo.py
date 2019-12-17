@@ -3,9 +3,12 @@
 
 
 import time
+
+
 def consumer():
     while True:
         res = yield
+
 
 def producer():
     g = consumer()

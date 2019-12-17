@@ -1,9 +1,13 @@
+import functools
+
+
 def repeat(_func=None, *, repeat_times=2):
     """when a decorator uses arguments, you need to add an extra outer function"""
     """Since the function to decorate is only passed in directly if the decorator is called without arguments, 
-    the function must be an optional argument. This means that the decorator arguments must all be specified by keyword. 
+    the function m_funcust be an optional argument. This means that the decorator arguments must all be specified by keyword. 
     You can enforce this with the special * syntax, which means that all following parameters are keyword-only:"""
 
+    @functools.wraps(_func)
     def decorator(func):
         def wrapper(*args, **kwargs):
             for i in range(repeat_times):
