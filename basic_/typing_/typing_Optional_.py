@@ -17,3 +17,8 @@ test_a({'a1': 123, 'a2': 456})
 
 test_b()
 test_b([1, 2, 3])
+
+"""\
+Note that there is technically no difference between using Optional[] on a Union[], or just adding None to the 
+Union[]. So Optional[Union[str, int]] and Union[str, int, None] are exactly the same thing. 
+"""

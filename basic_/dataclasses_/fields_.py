@@ -30,4 +30,8 @@ class SnowCreateResponse:
         return [f.name for f in fields(cls)]
 
 
+
+
 print(SnowCreateResponse.fields())
+print(SnowCreateResponse.field())
+print(SnowCreateResponse().props())

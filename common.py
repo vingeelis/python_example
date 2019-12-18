@@ -93,7 +93,10 @@ def analyse_time():
     print(timeit(stmt='ver', setup='ver=version_required("3.8")', globals=globals()))
 
 
-if __name__ == '__main__':
-    # analyse_mem()
-    # analyse_time()
+def __test_epoch_to_human_readable():
     epoch_to_human_readable(1575254030086532336)
+
+
+if __name__ == '__main__':
+    __test_epoch_to_human_readable()
+
