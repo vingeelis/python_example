@@ -14,4 +14,4 @@
 #
 # init_sys_path()
 
-from .relatively_ import TestMyDict, MyDict
+from basic_.import_.mydict_.src_ import TestMyDict, MyDict

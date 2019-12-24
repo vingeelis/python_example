@@ -13,10 +13,7 @@ __all__ == [...]
     python -m import_.app_
 """
 
-import sys
 import unittest
-
-print(sys.path)
 
 from basic_.import_ import TestMyDict
 
