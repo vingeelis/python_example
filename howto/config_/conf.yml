@@ -7,7 +7,6 @@ database:
   user: nasa
   password: 1234567
   name: nasa
-  auto_commit: false
 cms:
   url: https://example.com/
   userid: _USER_ID_1234

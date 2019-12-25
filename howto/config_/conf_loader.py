@@ -52,11 +52,11 @@ class ConfigLoader(object, ):
     @classmethod
     def load(cls, __profile_user=None):
         """ example
-        prod:       ../config/config.yml
+        prod:       ../config/conf.yml
         victor:     ../config/config_victor.yml
         """
         __CONFIG_DIR = './'
-        __CONFIG_BASENAME = 'config'
+        __CONFIG_BASENAME = 'conf'
         __CONFIG_SUFFIX = '.yml'
 
         if __profile_user:
