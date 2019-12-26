@@ -11,3 +11,8 @@ cms:
   url: https://example.com/
   userid: _USER_ID_1234
   token_file: _USER_ID_1234.token
+  users:
+    - 1
+    - 2
+    - 3
+    - 4

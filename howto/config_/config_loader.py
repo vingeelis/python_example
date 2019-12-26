@@ -33,7 +33,7 @@ class Config(YamlDataClassConfig):
         metadata=dataclasses_json.config(mm_field=PartConfig, )
     )
 
-    FILE_PATH: Path = create_file_path_field(Path(__file__).parent / '.config.yml')
+    FILE_PATH: Path = create_file_path_field(Path(__file__).parent / 'config_loader.yml')
 
 
 if __name__ == '__main__':
