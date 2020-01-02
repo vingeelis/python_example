@@ -2,10 +2,10 @@ from dataclasses import dataclass, field
 
 
 @dataclass
-class C:
+class CC2:
     a: float
     b: float
-    c: float = field(init=False)
+    c: float = field(init=False, repr=True)
 
     """The generated __init__() code will call a method named __post_init__(), if __post_init__() is defined on the 
     class. It will normally be called as self.__post_init__(). However, if any InitVar fields are defined, 
@@ -16,6 +16,6 @@ class C:
         self.c = self.a + self.b
 
 
-c = C(1, 2)
+c = CC2(1, 2)
 
-print(c.c)
+print(c)
