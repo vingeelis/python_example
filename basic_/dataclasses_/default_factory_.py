@@ -41,3 +41,9 @@ class Article:
 
 article = Article("DataClass", "alice")
 print(article)
+
+
+@dataclass
+class Pizza:
+    # ingredients: List = field(default_factory=lambda: ['dow', 'tomatoes'])  # <- wrong! not a 0-argument callable but a list
+    ingredients: List = field(default_factory=lambda: ['dow', 'tomatoes'])
