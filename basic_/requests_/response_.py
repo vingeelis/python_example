@@ -6,7 +6,7 @@ print(response.status_code)
 # raw bytes
 print(response.content)
 
-# decoded raw bytes
+# unicode
 print(response.text)
 
 # loaded raw bytes, usually load to dict
@@ -17,6 +17,3 @@ print(response.headers)
 # case-insensitive
 print(response.headers['Content-Type'])
 print(response.headers['content-type'])
-
-
-

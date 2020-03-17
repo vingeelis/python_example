@@ -23,9 +23,7 @@
         </li>
     </ul>
     {% endif %}
-</div>
-
-<span class="user">
+    <span class="user">
     {% if request.user.is_authenticated %}
         Hello {{ request.user.first_name }},
         <a href="{% url 'logout' %}">Logout</a>
@@ -33,6 +31,18 @@
         <a href="{% url 'login' %}">Log-in</a>
     {% endif %}
 </span>
+</div>
+
+{% if messages %}
+    <ul class="message">
+        {% for message in messages %}
+            <li class="{{ message.tags }}">
+                {{ message|safe }}
+                <a href="#" class="close">x</a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endif %}
 
 <div id="content">
     {% block content %}
