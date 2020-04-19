@@ -23,7 +23,7 @@ function pcl() {
     printf "%b%s%b" "${color}${strings}${COLOR_OFF}"
 }
 
-for dir in ${dirs[@]}; do
+for dir in "${dirs[@]}"; do
     cd $(realpath $dir)
 
     need_push=$(git status | awk \
