@@ -18,7 +18,7 @@ function pcl() {
 }
 
 
-for dir in ${dirs[@]}; do
+for dir in "${dirs[@]}"; do
     cd $(realpath $dir)
 
     # clear scratches_
