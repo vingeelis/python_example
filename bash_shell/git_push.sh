@@ -16,7 +16,7 @@ function red() {
 }
 
 function blue() {
-    colorize "${COLOR_LIGHT_BLUE}" $1
+    colorize "${COLOR_LIGHT_BLUE}" "$1"
 }
 
 will_push=$(git status | awk \
@@ -30,6 +30,7 @@ will_push=$(git status | awk \
 ')
 
 if [[ x"$will_push" == x"false" ]]; then
+    blue "nothing to push"
     exit
 fi
 
