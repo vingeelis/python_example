@@ -1,5 +1,5 @@
 import os
-from howto.search_.is_line_in_file import is_line_in_file
+from basic_.search_.is_line_in_file import is_line_in_file
 
 file_path_bashrc = os.path.expanduser('~/.bashrc')
 print(file_path_bashrc)

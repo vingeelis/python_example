@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 from math import asin, cos, radians, sin, sqrt
-from common import debug
+from basic_.common import debug
 
 
 @dataclass
