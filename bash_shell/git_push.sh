@@ -34,7 +34,7 @@ if [[ x"$will_push" == x"false" ]]; then
     exit
 fi
 
-red "git pulling..."
+red "git pushing..."
 cd ../
 git add .
 git commit -m "$(date +'%F %t'): auto commit"
