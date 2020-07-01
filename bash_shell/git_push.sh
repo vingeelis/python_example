@@ -12,7 +12,7 @@ function colorize() {
 }
 
 function red() {
-    colorize "${COLOR_RED}" $1
+    colorize "${COLOR_RED}" "$1"
 }
 
 function blue() {

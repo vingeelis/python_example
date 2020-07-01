@@ -29,19 +29,19 @@ function colorize() {
 }
 
 function color_red() {
-    colorize $COLOR_LIGHT_RED $1
+    colorize $COLOR_LIGHT_RED "$1"
 }
 
 function color_blue() {
-    colorize $COLOR_BLUE $1
+    colorize $COLOR_BLUE "$1"
 }
 
 function color_white() {
-    colorize $COLOR_WHITE $1
+    colorize $COLOR_WHITE "$1"
 }
 
 function color_black() {
-    colorize $COLOR_BLACK $1
+    colorize $COLOR_BLACK "$1"
 }
 
 color_red "red"

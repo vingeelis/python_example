@@ -12,11 +12,11 @@ function colorize() {
 }
 
 function red() {
-    colorize "${COLOR_RED}" $1
+    colorize "${COLOR_RED}" "$1"
 }
 
 function blue() {
-    colorize "${COLOR_LIGHT_BLUE}" $1
+    colorize "${COLOR_LIGHT_BLUE}" "$1"
 }
 
 red "git pulling..."
