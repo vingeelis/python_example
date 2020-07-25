@@ -1,7 +1,6 @@
-from basic_.sqlalchemy_.create_a_session import Session
+from basic_.sqlalchemy_.create_session import session
 from basic_.sqlalchemy_.declare_mapping_ import User
 
-session = Session()
 ed_user = session.query(User).filter_by(name='ed').first()
 print(ed_user)
 

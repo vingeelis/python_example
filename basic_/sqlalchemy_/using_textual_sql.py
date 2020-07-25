@@ -1,10 +1,9 @@
 from sqlalchemy.orm import aliased
 from sqlalchemy import text
 
-from basic_.sqlalchemy_.create_a_session import Session
+from basic_.sqlalchemy_.create_session import session
 from basic_.sqlalchemy_.declare_mapping_ import User
 
-session = Session()
 
 # text()
 for user in session.query(User).filter(text('id<100')).order_by(text('id')).all():

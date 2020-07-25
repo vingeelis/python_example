@@ -1,9 +1,7 @@
 from sqlalchemy.orm import aliased
 
-from basic_.sqlalchemy_.create_a_session import Session
+from basic_.sqlalchemy_.create_session import session
 from basic_.sqlalchemy_.declare_mapping_ import User
-
-session = Session()
 
 for un in session.query(User.name).filter(User.name == 'ed'):
     print(un)
@@ -48,7 +46,7 @@ for un in session.query(User.name).filter(User.name.isnot(None)):
 from sqlalchemy import and_
 
 for un, ufn in session.query(User.name, User.fullname).filter(and_(User.name == 'ed', User.fullname == 'Ed Jones')):
-    print(f"and_: {un},{ufn}") 
+    print(f"and_: {un},{ufn}")
 
 for un, ufn in session.query(User.name, User.fullname).filter(User.name == 'ed', User.fullname == 'Ed Jones'):
     print(f"and using ,: {un},{ufn}")

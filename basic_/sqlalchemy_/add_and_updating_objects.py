@@ -1,8 +1,7 @@
-from basic_.sqlalchemy_.create_a_session import Session
+from basic_.sqlalchemy_.create_session import session
 from basic_.sqlalchemy_.declare_mapping_ import User
 
 ed_user = User(name='ed', fullname='Ed Jones', nickname='edsnickname')
-session = Session()
 session.add(ed_user)
 
 # At this point, we say that the instance is pending; no SQL has yet been issued and the object is not yet represented by a row in the database.

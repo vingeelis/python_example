@@ -1,9 +1,9 @@
 from sqlalchemy.orm import aliased
 from sqlalchemy.orm.exc import MultipleResultsFound, NoResultFound
-from basic_.sqlalchemy_.create_a_session import Session
+from basic_.sqlalchemy_.create_session import session
 from basic_.sqlalchemy_.declare_mapping_ import User
 
-session = Session()
+
 
 query = session.query(User).filter(User.name.like('%ed')).order_by(User.id)
 print(query.all())

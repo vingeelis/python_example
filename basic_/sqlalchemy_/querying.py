@@ -1,9 +1,7 @@
 from sqlalchemy.orm import aliased
 
-from basic_.sqlalchemy_.create_a_session import Session
+from basic_.sqlalchemy_.create_session import session
 from basic_.sqlalchemy_.declare_mapping_ import User
-
-session = Session()
 
 for instance in session.query(User).order_by(User.id):
     print(instance.name, instance.fullname)
