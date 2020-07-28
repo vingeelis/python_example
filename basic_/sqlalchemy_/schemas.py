@@ -1,6 +1,6 @@
 from sqlalchemy import create_engine, Column, Integer, String, ForeignKey
-from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, relationship
+
 
 # The echo flag is a shortcut to setting up SQLAlchemy logging, which is accomplished via Python’s standard logging module.
 # With it enabled, we’ll see all the generated SQL produced.
@@ -8,17 +8,31 @@ from sqlalchemy.orm import sessionmaker, relationship
 # The return value of create_engine() is an instance of Engine, and it represents the core interface to the database,
 # adapted through a dialect that handles the details of the database and DBAPI in use.
 # In this case the SQLite dialect will interpret instructions to the Python built-in sqlite3 module.
-engine = create_engine('postgresql+psycopg2://pgadmin:123456@192.168.1.241/cassini', echo=False)
 
-# create a session
-Session = sessionmaker(bind=engine)
-session = Session()
+
+class Database(object):
+    from sqlalchemy.ext.declarative import declarative_base
+    Base = declarative_base()
+
+    @staticmethod
+    def get_engine(echo=False):
+        return create_engine('postgresql+psycopg2://pgadmin:123456@192.168.1.241/cassini', echo=echo)
+
+    @staticmethod
+    def get_session(echo=False):
+        return sessionmaker(
+            bind=Database.get_engine(echo=echo)
+        )()
+
+    @staticmethod
+    def create_tables():
+        Database.Base.metadata.create_all(Database.get_engine(echo=False))
+
 
 # declare a mapping
-Base = declarative_base()
 
 
-class User(Base):
+class User(Database.Base):
     __tablename__ = 'users'
     id = Column(Integer, primary_key=True)
     name = Column(String(50))
@@ -27,13 +41,14 @@ class User(Base):
     # In both relationship() directives, the parameter relationship.back_populates is assigned to refer to the complementary attribute names;
     # by doing so, each relationship() can make intelligent decision about the same relationship as expressed in reverse;
     # on one side, Address.user refers to a User instance, and on the other side, User.addresses refers to a list of Address instances.
-    addresses = relationship('Address', back_populates='user')
+    # addresses = relationship('Address', back_populates='user')
+    addresses = relationship('Address', back_populates='user', cascade="all, delete, delete-orphan")
 
     def __repr__(self):
-        return f"<User(name={self.name}, fullname={self.fullname}, nickname={self.nickname})>"
+        return f"<User(id={self.id}, name={self.name}, fullname={self.fullname}, nickname={self.nickname})>"
 
 
-class Address(Base):
+class Address(Database.Base):
     __tablename__ = 'addresses'
     id = Column(Integer, primary_key=True)
     email_address = Column(String, nullable=False)
@@ -43,11 +58,8 @@ class Address(Base):
     user = relationship('User', back_populates='addresses')
 
     def __repr__(self):
-        return f"<Address(email_address={self.email_address})>"
+        return f"<Address(id={self.id}, email_address={self.email_address})>"
 
 
-def create_all():
-    Base.metadata.create_all(engine)
-
-
-create_all()
+def horizontal_rule():
+    print('-' * 79)

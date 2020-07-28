@@ -1,10 +1,7 @@
-from basic_.sqlalchemy_.schemas import User, session
+from basic_.sqlalchemy_.schemas import User, Database, horizontal_rule
 from sqlalchemy.orm import aliased
 
-
-def horizontal_rule():
-    print('-' * 79)
-
+session = Database.get_session(echo=True)
 
 for instance in session.query(User).order_by(User.id):
     print(instance.name, instance.fullname)

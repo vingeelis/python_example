@@ -1,4 +1,6 @@
-from basic_.sqlalchemy_.schemas import User, session
+from basic_.sqlalchemy_.schemas import User, Database
+
+session = Database.get_session(echo=True)
 
 # ed_user = User(name='ed', fullname='Ed Jones', nickname='eddie')
 ed_user = User(fullname='Ed Jones')

@@ -1,5 +1,7 @@
 from basic_.sqlalchemy_.rolling_back import fake_user
-from basic_.sqlalchemy_.schemas import User, session
+from basic_.sqlalchemy_.schemas import User, Database
+
+session = Database.get_session(echo=True)
 
 # create an instance of the mapped class
 ed_user = User(name='ed', fullname='Ed Jones', nickname='edsnickname')
@@ -40,5 +42,6 @@ print(session.new)
 # The Session emits the UPDATE statement for the nickname change on “ed”, as well as INSERT statements for the three new User objects we’ve added:
 session.commit()
 
-
-
+# add once
+session.add(User(name='robert', fullname='Bob Allan Smith', nickname='bob'))
+session.commit()
