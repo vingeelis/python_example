@@ -1,4 +1,3 @@
-from basic_.sqlalchemy_.rolling_back import fake_user
 from basic_.sqlalchemy_.schemas import User, Database
 
 session = Database.get_session(echo=True)

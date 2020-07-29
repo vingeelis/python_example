@@ -2,6 +2,10 @@ from sqlalchemy import create_engine, Column, Integer, String, ForeignKey
 from sqlalchemy.orm import sessionmaker, relationship
 
 
+def horizontal_rule():
+    print('-' * 79)
+
+
 # The echo flag is a shortcut to setting up SQLAlchemy logging, which is accomplished via Python’s standard logging module.
 # With it enabled, we’ll see all the generated SQL produced.
 # If you are working through this tutorial and want less output generated, set it to False.
@@ -29,8 +33,42 @@ class Database(object):
         Database.Base.metadata.create_all(Database.get_engine(echo=False))
 
 
-# declare a mapping
+'''Classical Mapping
+# In “classical” form, the table metadata is created separately with the Table construct, then associated with the User class via the mapper() function:
+# from sqlalchemy import Table, MetaData, Column, Integer, String, ForeignKey
+# from sqlalchemy.orm import mapper
 
+metadata = MetaData()
+
+user = Table('user', metadata,
+            Column('id', Integer, primary_key=True),
+            Column('name', String(50)),
+            Column('fullname', String(50)),
+            Column('nickname', String(12))
+        )
+
+class User(object):
+    def __init__(self, name, fullname, nickname):
+        self.name = name
+        self.fullname = fullname
+        self.nickname = nickname
+
+address = Table('address', metadata,
+            Column('id', Integer, primary_key=True),
+            Column('user_id', Integer, ForeignKey('user.id')),
+            Column('email_address', String(50))
+            )
+
+mapper(User, user, properties={
+    'addresses' : relationship(Address, backref='user', order_by=address.c.id)
+})
+
+mapper(Address, address)
+'''
+
+
+# Declarative Mapping:
+# declare a mapping using the Declarative system
 
 class User(Database.Base):
     __tablename__ = 'users'
@@ -42,7 +80,8 @@ class User(Database.Base):
     # by doing so, each relationship() can make intelligent decision about the same relationship as expressed in reverse;
     # on one side, Address.user refers to a User instance, and on the other side, User.addresses refers to a list of Address instances.
     # addresses = relationship('Address', back_populates='user')
-    addresses = relationship('Address', back_populates='user', cascade="all, delete, delete-orphan")
+    addresses = relationship('Address', order_by="Address.id", back_populates='user',
+                             cascade="all, delete, delete-orphan")
 
     def __repr__(self):
         return f"<User(id={self.id}, name={self.name}, fullname={self.fullname}, nickname={self.nickname})>"
@@ -61,5 +100,20 @@ class Address(Database.Base):
         return f"<Address(id={self.id}, email_address={self.email_address})>"
 
 
-def horizontal_rule():
-    print('-' * 79)
+def inspect_table():
+    from sqlalchemy import inspect
+    insp = inspect(User)
+
+    print(insp.columns)
+    print(list(insp.columns))
+    print(insp.columns.name)
+    print(insp.all_orm_descriptors)
+    print(insp.all_orm_descriptors.keys())
+    print(insp.column_attrs)
+    print(insp.column_attrs.name)
+    print(insp.column_attrs.name.expression)
+
+
+if __name__ == '__main__':
+    # Database.create_tables()
+    inspect_table()
