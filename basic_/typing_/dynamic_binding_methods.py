@@ -2,6 +2,9 @@ from types import MethodType
 
 
 class Student(object):
+    name: str
+    age: int
+    score: float
     pass
 
 
