@@ -19,3 +19,4 @@ print(headline("python type checking", align=False))
 ## run type checking
 
 # mypy headlines_.py
+
