@@ -1,5 +1,7 @@
 from typing import Optional
 
+# initialize a variable with None
+oo: Optional[str] = None
 
 # Optional[...] is a shorthand notation for Union[..., None]
 # Whenever you have a keyword argument with default value None, you should use Optional.
@@ -20,5 +22,6 @@ test_b([1, 2, 3])
 
 """\
 Note that there is technically no difference between using Optional[] on a Union[], or just adding None to the 
-Union[]. So Optional[Union[str, int]] and Union[str, int, None] are exactly the same thing. 
+Union[]. So the two sides of the following are exactly the same thing. 
+Optional[Union[str, int]] <==> Union[str, int, None]
 """

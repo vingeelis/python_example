@@ -1,21 +1,4 @@
-from typing import Union, Any, List, Optional, cast
 from builtins import int
-
-# Use Union when something could be one of a few types
-l: List[Union[int, str]] = [3, 5, 'three', 'five']
-
-
-# Use Any if you don't know the type of something
-# dynamic to write a type for
-def mystery_function():
-    pass
-
-
-aa: Any = mystery_function()
-
-# If you initialize a variable with an empty container or "None"
-ll: List[str] = []
-oo: Optional[str] = None
 
 
 # This makes each positional arg and each keyword arg a "str"
