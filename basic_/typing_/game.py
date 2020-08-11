@@ -1,5 +1,5 @@
 import random
-from typing import List, Tuple, NoReturn
+from typing import List, Tuple, NoReturn, Sequence, Any, TypeVar
 
 SUITS = "♠ ♡ ♢ ♣".split()
 RANKS = "2 3 4 5 6 7 8 9 10 J Q K A".split()
@@ -27,8 +27,10 @@ def deal_hands(deck: Deck) -> Tuple[Deck, Deck, Deck, Deck]:
     """Deal the cards in the deck into four hands"""
     return deck[0::4], deck[1::4], deck[2::4], deck[3::4]
 
+# restrict choose() to be used for either str or Card:
+Choosable = TypeVar("Choosable", str, Card)
 
-def choose(items):
+def choose(items: Sequence[Choosable]) -> Choosable:
     """Choose and return a random item"""
     return random.choice(items)
 
