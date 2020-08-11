@@ -20,7 +20,7 @@ function blue() {
 }
 
 red "git pulling..."
-cd ..
+cd ../
 git pull
 if [[ $? -eq 0 ]]; then
     blue "pull success"
