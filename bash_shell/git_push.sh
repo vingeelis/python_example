@@ -35,11 +35,9 @@ if [[ x"$will_push" == x"false" ]]; then
 fi
 
 red "git pushing..."
-cd ../
 git add .
 git commit -m "$(date +'%F %t'): auto commit"
-git push
-if [[ $? -eq 0 ]]; then
+if git push; then
     blue "push success"
 else
     red "pull failed"
