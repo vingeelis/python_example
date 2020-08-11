@@ -4,12 +4,11 @@
 import socket
 from socket import AF_INET, SOCK_STREAM
 from os import popen
+from typing import List
 
 
-def cond(arg):
-    return [0 < len(arg) <= 1024,
-            arg.lower() != 'exit',
-            arg.lower() != 'quit', ]
+def cond(arg: str) -> List[bool]:
+    return [0 < len(arg) <= 1024, arg.upper() != 'EXIT', arg.upper() != 'QUIT', ]
 
 
 server = socket.socket(AF_INET, SOCK_STREAM)
