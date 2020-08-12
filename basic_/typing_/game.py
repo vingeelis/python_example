@@ -1,5 +1,5 @@
 import random
-from typing import List, Tuple, NoReturn, Sequence, Any, TypeVar
+from typing import List, Tuple, NoReturn, Sequence, Any, TypeVar, Optional
 
 SUITS = "♠ ♡ ♢ ♣".split()
 RANKS = "2 3 4 5 6 7 8 9 10 J Q K A".split()
@@ -27,20 +27,25 @@ def deal_hands(deck: Deck) -> Tuple[Deck, Deck, Deck, Deck]:
     """Deal the cards in the deck into four hands"""
     return deck[0::4], deck[1::4], deck[2::4], deck[3::4]
 
+
 # restrict choose() to be used for either str or Card:
 Choosable = TypeVar("Choosable", str, Card)
+
 
 def choose(items: Sequence[Choosable]) -> Choosable:
     """Choose and return a random item"""
     return random.choice(items)
 
 
-def player_order(names, start=None):
+# def player_order(names: Sequence[str], start: Optional[str] = None) -> Sequence[str]:
+# the above annotate can be shorten as following, Mypy assumes that a default argument of None indecates an Optional argument
+# even if the type hint does not explicitly say no.
+def player_order(names: Sequence[str], start: str = None) -> Sequence[str]:
     """Rotate player order so that start goes first"""
-    if start is None:
-        start = choose(names)
+    # if start is None:
+    #     start = choose(names)
     start_idx = names.index(start)
-    return names[start_idx:] + names[:start_idx]
+    return (*names[start_idx:], *names[:start_idx])
 
 
 # function without return values
@@ -50,7 +55,7 @@ def play() -> None:
     hands = {n: h for n, h in zip(names, deal_hands(create_deck(shuffle=True)))}
     start_player = choose(names)
     turn_order = player_order(names, start=start_player)
-
+    # turn_order = player_order(names)
     # Randomly play card from each player's hand until empty
     while hands[start_player]:
         for name in turn_order:
