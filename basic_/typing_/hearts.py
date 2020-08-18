@@ -3,10 +3,18 @@ import random
 import sys
 from typing import Any, Dict, List, Optional, Sequence, Tuple, Union
 from typing import overload
+from tabulate import tabulate
+
 
 
 class Card:
-    SUITS = "♠ ♡ ♢ ♣".split()
+    S_HEART = '♡'
+    S_DIAMOND = '♢'
+    S_CLUB = '♣'
+    S_SPADE = '♠'
+    R_QUEUE = 'Q'
+
+    SUITS = [S_HEART, S_DIAMOND, S_CLUB, S_SPADE]
     RANKS = "2 3 4 5 6 7 8 9 10 J Q K A".split()
 
     def __init__(self, suit: str, rank: str) -> None:
@@ -21,7 +29,7 @@ class Card:
     @property
     def points(self) -> int:
         """Points this card is worth"""
-        if self.suit == "♠" and self.rank == "Q":
+        if self.suit == self.S_SPADE and self.rank == self.R_QUEUE:
             return 13
         if self.suit == "♡":
             return 1
@@ -43,7 +51,7 @@ class Deck(Sequence[Card]):
 
     @classmethod
     def create(cls, shuffle: bool = False) -> "Deck":
-        """Create a new deck of 52 cards"""
+        """Constructor: Create a new deck of 52 cards"""
         cards = [Card(s, r) for r in Card.RANKS for s in Card.SUITS]
         if shuffle:
             random.shuffle(cards)
@@ -98,7 +106,7 @@ class Player:
         lead = played[0].suit if played else None
         playable = Deck([c for c in self.hand if c.suit == lead]) or self.hand
         if lead is None and not hearts_broken:
-            playable = Deck([c for c in playable if c.suit != "♡"])
+            playable = Deck([c for c in playable if c.suit != Card.S_HEART])
         return playable or Deck(self.hand.cards)
 
     def non_winning_cards(self, played: List[Card], playable: Deck) -> Deck:
@@ -111,11 +119,11 @@ class Player:
         return Deck([c for c in playable if c < best_card or c.suit != lead])
 
     def play_card(self, played: List[Card], hearts_broken: bool) -> Card:
-        """Play a card from a cpu player's hand"""
+        """Play a card from an AI player's hand"""
         playable = self.playable_cards(played, hearts_broken)
         non_winning = self.non_winning_cards(played, playable)
 
-        # Strategy
+        # AI Strategy
         if non_winning:
             # Highest card not winning the trick, prefer points
             card = max(non_winning, key=lambda c: (c.points, c.value))
@@ -126,7 +134,7 @@ class Player:
             # Highest card guaranteed winning, avoid points
             card = max(playable, key=lambda c: (-c.points, c.value))
         self.hand.cards.remove(card)
-        print(f"{self.name} -> {card}")
+        print(f"AI({self.name}) -> {card}")
         return card
 
     def has_card(self, card: Card) -> bool:
@@ -140,19 +148,19 @@ class HumanPlayer(Player):
     def play_card(self, played: List[Card], hearts_broken: bool) -> Card:
         """Play a card from a human player's hand"""
         playable = sorted(self.playable_cards(played, hearts_broken))
-        p_str = "  ".join(f"{n}: {c}" for n, c in enumerate(playable))
+        p_str = "  ".join(f"{c}({n})" for n, c in enumerate(playable, start=1))
         np_str = " ".join(repr(c) for c in self.hand if c not in playable)
         print(f"  {p_str}  (Rest: {np_str})")
         while True:
             try:
-                card_num = int(input(f"  {self.name}, choose card: "))
+                card_num = int(input(f"You({self.name}): choose card: ")) - 1
                 card = playable[card_num]
             except (ValueError, IndexError):
                 pass
             else:
                 break
         self.hand.play(card)
-        print(f"{self.name} => {card}")
+        print(f"You({self.name}) => {card}")
         return card
 
 
@@ -169,9 +177,8 @@ class HeartsGame:
             print("\nStarting new round:")
             round_score = self.play_round()
             score.update(Counter(round_score))
-            print("Scores:")
-            for name, total_score in score.most_common(4):
-                print(f"{name:<15} {round_score[name]:>3} {total_score:>3}")
+            tbody = [(name, round_score[name], total_score) for name, total_score in score.most_common()]
+            print(tabulate(tbody, headers=['name', 'round', 'total']))
 
         winners = [n for n in self.names if score[n] == min(score.values())]
         print(f"\n{' and '.join(winners)} won the game")
@@ -220,8 +227,11 @@ class HeartsGame:
         return {n: sum(c.points for c in cards) for n, cards in tricks.items()}
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     # Read player names from the command line
     player_names = sys.argv[1:]
     game = HeartsGame(*player_names)
     game.play()
+
+# run as following
+# python3 hearts.py Steve Alice Bob Cassandra
