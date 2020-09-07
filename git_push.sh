@@ -35,7 +35,6 @@ if [[ x"$will_push" == x"false" ]]; then
 fi
 
 red "git pushing..."
-cd ../
 git add .
 git commit -m "$(date +'%F %t'): auto commit"
 if git push; then
