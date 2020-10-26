@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>business</title>
+</head>
+<body>
+
+<h1>list of business (object)</h1>
+<ul>
+    {% for row in v1 %}
+        <li>{{ row.id }} - {{ row.caption }} - {{ row.code }}</li>
+    {% endfor %}
+</ul>
+
+<h1>list of business (dict)</h1>
+<ul>
+    {% for row in v2 %}
+        <li>{{ row.id }} -- {{ row.caption }}</li>
+    {% endfor %}
+</ul>
+
+<h1>list of business (tuple)</h1>
+<ul>
+    {% for row in v2 %}
+        <li>{{ row.0 }} -- {{ row.1 }}</li>
+    {% endfor %}
+</ul>
+
+</body>
+</html>

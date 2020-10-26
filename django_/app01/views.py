@@ -1,62 +1,40 @@
 from django.core.files import File
 from django.shortcuts import render, HttpResponse, redirect
 from django.core.handlers.wsgi import WSGIRequest
+from app01 import models
+
+import json
+
 
 # Create your views here.
-from django.views import View
 
-# USER_DICT = {
-#     '1': 'root1',
-#     '2': 'root2',
-#     '3': 'root3',
-#     '4': 'root4',
-# }
+def business(request):
+    v1 = models.Business.objects.all()
+    v2 = models.Business.objects.all().values('id', 'caption')
+    v3 = models.Business.objects.all().values_list('id', 'caption')
 
-USER_DICT = {
-    '1': {'name': 'root1', 'email': 'root@live.com'},
-    '2': {'name': 'root2', 'email': 'root@live.com'},
-    '3': {'name': 'root3', 'email': 'root@live.com'},
-    '4': {'name': 'root4', 'email': 'root@live.com'},
-    '5': {'name': 'root5', 'email': 'root@live.com'},
-}
+    return render(request, 'business.html', {'v1': v1, 'v2': v2, 'v3': v3})
 
 
-def index(request):
-    return render(request, 'index.html', {'user_dict': USER_DICT}, )
-
-
-# def detail(request):
-#     nid = request.GET.get('nid')
-#     return render(request, 'detail.html', {'detail_info': USER_DICT[nid]})
-
-def detail(request, nid):
-    return HttpResponse(nid)
-
-
-def login(request: WSGIRequest):
+def host(request):
     if request.method == 'GET':
-        return render(request, 'login.html')
+        v1 = models.Host.objects.filter(id__gt=0)
+        v2 = models.Host.objects.filter(id__gt=0).values('id', 'hostname', 'business_id', 'business__caption')
+        for v in v2:
+            print(v['id'], v['hostname'], v['business_id'], v['business__caption'])
+        v3 = models.Host.objects.values_list('id', 'hostname', 'business_id', 'business__caption')
+
+        business_list = models.Business.objects.all()
+
+        return render(request, 'host.html', {'v1': v1, 'v2': v2, 'v3': v3, 'business_list': business_list})
+
     elif request.method == 'POST':
-        file: File = request.FILES.get('file01')
-        fd = open(file.name, mode='wb+')
-        for c in file.chunks():
-            fd.write(c)
-        fd.close()
-        return render(request, 'login.html')
-    else:
-        return redirect('/index/')
-
-
-def home(request):
-    return HttpResponse('Home')
-
-
-class Home(View):
-
-    def get(self, request):
-        print(request.method)
-        return render(request, 'home.html')
-
-    def post(self, request):
-        print(request.method, 'POST')
-        return render(request, 'home.html')
+        h = request.POST.get('hostname')
+        i = request.POST.get('ip')
+        p = request.POST.get('port')
+        b = request.POST.get('business_id')
+        models.Host.objects.create(hostname=h,
+                                   ip=i,
+                                   port=p,
+                                   business_id=b)
+        return redirect('/host')
