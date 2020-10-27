@@ -40,13 +40,39 @@ window.onload = function () {
         },
         submit: function () {
             console.log(this.picked);
+        },
+        clicknow: function (e) {
+            console.log(e);
         }
     };
+
+    Vue.component('button-counter', {
+        props: ['title'],
+        data: function () {
+            return {
+                count: 0
+            }
+        },
+        template: '<div><h1>Hi...</h1><button v-on:click="clickfun">{{ title }}You clicked {{ count }} times.</button><slot></slot></slot></div>',
+        methods: {
+            clickfun: function () {
+                this.count++;
+                this.$emit('clicknow', this.count);
+            }
+        },
+
+    })
+
 
     var vm = new Vue({
         el: '#app',
         data: data,
         methods: methods,
+        components: {
+            test: {
+                template: "<h2>h2...</h2>",
+            }
+        }
     });
 
     vm.$data.message = "Hello Vue!";

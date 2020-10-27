@@ -3,7 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Vue course</title>
-    <link rel="shortcut icon" href="">
+    <link rel="apple-touch-icon" sizes="180x180" href="../static/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../static/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../static/favicon-16x16.png">
+    <link rel="manifest" href="../static/site.webmanifest">
     <script type="text/javascript" src="../js/index.js" charset="utf-8"></script>
     <script type="text/javascript" src="../js/vue.js" charset="utf-8"></script>
     <style type="text/css">
@@ -32,6 +35,7 @@
 <body>
 
 <div id="app">
+    <test></test>
 
     <div>
         <span v-once>{{ message }}</span>
@@ -119,9 +123,9 @@
         <br>
         <span>Picked: {{ picked }}</span>
         <button type="button" @click="submit">submit</button>
+        <button-counter title="title1: " @clicknow="clicknow"></button-counter>
+        <button-counter title="title2: "></button-counter>
     </div>
-
-
 
 
 </div>

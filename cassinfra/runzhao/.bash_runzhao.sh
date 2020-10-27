@@ -2,6 +2,8 @@
 
 alias ltr='ls -ltr'
 alias si='sudo -i'
+alias tn='tmux new -s 1'
+alias ta='tmux a'
 alias t-l='tess login'
 alias t-c='tess clusters'
 alias k-cu='kubectl config use-context'
@@ -339,10 +341,10 @@ gssh-set-sudo() {
 gssh-clear-logs() {
     local host=$1
     gssh $host 'find /ebay/cronus/software/cronusapp_home/cassini/logs/ -type f -name "server_container.log.*" | xargs -I{} rm -rf {}'
-    gssh $host '/ebay/cronus/software/service_nodes/logpusher-core/manifests/active/cassini_logpusher_config/cronus/scripts/deactivate'
-    gssh $host '/ebay/cronus/software/service_nodes/logpusher-core/manifests/active/cassini_logpusher_config/cronus/scripts/activate'
-    gssh $host '/ebay/cronus/software/service_nodes/logpusher-core/manifests/active/cassini_logpusher/cronus/scripts/deactivate'
-    gssh $host '/ebay/cronus/software/service_nodes/logpusher-core/manifests/active/cassini_logpusher/cronus/scripts/activate'
-    gssh $host '/ebay/cronus/software/service_nodes/logpusher-core/manifests/active/cassini_logpusher/cronus/scripts/startup'
+    gssh $host 'sudo -u cronusapp /ebay/cronus/software/service_nodes/logpusher-core/manifests/active/cassini_logpusher_config/cronus/scripts/deactivate'
+    gssh $host 'sudo -u cronusapp /ebay/cronus/software/service_nodes/logpusher-core/manifests/active/cassini_logpusher_config/cronus/scripts/activate'
+    gssh $host 'sudo -u cronusapp /ebay/cronus/software/service_nodes/logpusher-core/manifests/active/cassini_logpusher/cronus/scripts/deactivate'
+    gssh $host 'sudo -u cronusapp /ebay/cronus/software/service_nodes/logpusher-core/manifests/active/cassini_logpusher/cronus/scripts/activate'
+    gssh $host 'sudo -u cronusapp /ebay/cronus/software/service_nodes/logpusher-core/manifests/active/cassini_logpusher/cronus/scripts/startup'
     gssh $host "ps -u cronusapp -o user,ppid,pid,comm,args | awk '{if(\$4==\"java\" && \$(NF-1)~/logpusher\.jar/) print}'"
 }
