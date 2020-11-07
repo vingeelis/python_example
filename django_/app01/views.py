@@ -20,8 +20,6 @@ def host(request):
     if request.method == 'GET':
         v1 = models.Host.objects.filter(id__gt=0)
         v2 = models.Host.objects.filter(id__gt=0).values('id', 'hostname', 'business_id', 'business__caption')
-        for v in v2:
-            print(v['id'], v['hostname'], v['business_id'], v['business__caption'])
         v3 = models.Host.objects.values_list('id', 'hostname', 'business_id', 'business__caption')
 
         business_list = models.Business.objects.all()
@@ -38,3 +36,35 @@ def host(request):
                                    port=p,
                                    business_id=b)
         return redirect('/host')
+
+
+def test_ajax(request):
+    ret = {'status': True, 'error': None, 'data': None}
+
+    print(request.POST)
+    h = request.POST.get('hostname')
+    i = request.POST.get('ip')
+    p = request.POST.get('port')
+    b = request.POST.get('business_id')
+    print(h)
+    print(i)
+    print(p)
+    print(b)
+    try:
+        if h and len(h) > 5:
+            models.Host.objects.create(
+                hostname=h,
+                ip=i,
+                port=p,
+                business_id=b,
+            )
+            ret['status'] = False
+            ret['error'] = "too short"
+        else:
+            return HttpResponse('too short')
+    except Exception as e:
+        ret['status'] = False
+        ret['error'] = 'too short'
+
+    return HttpResponse(json.dumps(ret))
+

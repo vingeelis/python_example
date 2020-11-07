@@ -119,7 +119,7 @@
             <label for="sel"></label>
             <select id="sel" name="business_id">
                 {% for op in business_list %}
-                    <option value="{{ op.id }}">{{ op.caption }}></option>
+                    <option value="{{ op.id }}">{{ op.caption }}</option>
                 {% endfor %}
             </select>
         </div>
@@ -127,9 +127,9 @@
         <label>
             <input type="submit" value="submit">
         </label>
-        <a id="ajax_submit">ajax_submit</a>
+        <a id="ajax_submit" style="display: inline-block; padding: 2px; background: blue; color: white;">ajax_submit</a>
         <input class="cancel" type="button" value="cancel">
-        <span id="erro_msg" style="color: red"></span>
+        <span id="error_msg" style="color: red"></span>
     </form>
 </div>
 
@@ -171,7 +171,8 @@
                     if (obj.status) {
                         location.reload();
                     } else {
-                        $('#erro_msg').text(obj.error)
+                        $('#error_msg').text(obj.error)
+
                     }
 
                 }
@@ -184,7 +185,7 @@
             var hid = $(this).parent().parent().attr('hid');
 
             $('#edit_form').find('select').val(bid);
-            $('#edit_form').find('input[name="nid"]').val(hid);
+            $('#edit_form').find('input[name="id"]').val(hid);
         });
     })
 </script>

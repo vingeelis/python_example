@@ -21,4 +21,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     re_path('business', views.business),
     re_path('host', views.host),
+    re_path('test_ajax', views.test_ajax),
+
 ]

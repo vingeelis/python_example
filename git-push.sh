@@ -1,25 +1,19 @@
 #!/usr/bin/env bash
-#
+# put this file in the project root dir
 
-COLOR_RED="\033[0;31m"
-COLOR_LIGHT_BLUE="\033[1;34m"
+COLOR_OFF='\033[0m'
+RED="\033[1;31m"
+GREEN="\033[1;32m"
+BLUE="\033[1;34m"
 
-function colorize() {
+colorize() {
     local COLOR_OFF='\033[0m'
     local color=$1
     local strings=$2
     printf "%b%s%b\n" "${color}${strings}${COLOR_OFF}"
 }
 
-function red() {
-    colorize "${COLOR_RED}" "$1"
-}
-
-function blue() {
-    colorize "${COLOR_LIGHT_BLUE}" "$1"
-}
-
-will_push=$(git status | awk \
+todo=$(git status | awk \
     -v TO_ADD="Untracked files" \
     -v TO_STAGE="Changes not staged for commit" \
     -v TO_COMMIT="Changes to be committed" \
@@ -29,16 +23,21 @@ will_push=$(git status | awk \
     END {print flag}
 ')
 
-if [[ x"$will_push" == x"false" ]]; then
+if [[ x"$todo" == x"false" ]]; then
     blue "nothing to push"
     exit
 fi
 
-red "git pushing..."
+root_dir=$(dirname "$(realpath $0)")
+colorize $BLUE "git pushing..."
+cd "$root_dir" || {
+    echo "dir $root_dir not exists"
+    exit
+}
 git add .
 git commit -m "$(date +'%F %t'): auto commit"
 if git push; then
-    blue "push success"
+    colorize "$GREEN" "push succeeded"
 else
-    red "pull failed"
+    colorize "$RED" "push failed"
 fi
