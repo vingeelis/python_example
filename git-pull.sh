@@ -14,13 +14,13 @@ function colorize() {
 }
 
 root_dir=$(dirname "$(realpath $0)")
-colorize $BLUE "git pulling..."
+colorize $BLUE "$root_dir: git pulling..."
 cd "$root_dir" || {
-    echo "dir $root_dir not exists"
+    echo "$root_dir: not exists"
     exit
 }
 if git pull; then
-  colorize "$GREEN" "pull succeeded"
+  colorize "$GREEN" "$root_dir: pull succeeded"
 else
-  colorize "$RED" "pull failed"
+  colorize "$RED" "$root_dir: pull failed"
 fi

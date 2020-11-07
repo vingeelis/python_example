@@ -29,15 +29,15 @@ if [[ x"$todo" == x"false" ]]; then
 fi
 
 root_dir=$(dirname "$(realpath $0)")
-colorize $BLUE "git pushing..."
+colorize $BLUE "$root_dir: git pushing..."
 cd "$root_dir" || {
-    echo "dir $root_dir not exists"
+    echo "$root_dir: not exists"
     exit
 }
 git add .
 git commit -m "$(date +'%F %t'): auto commit"
 if git push; then
-    colorize "$GREEN" "push succeeded"
+    colorize "$GREEN" "$root_dir: push succeeded"
 else
-    colorize "$RED" "push failed"
+    colorize "$RED" "$root_dir: push failed"
 fi
