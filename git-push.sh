@@ -24,14 +24,14 @@ todo=$(git status | awk \
 ')
 
 if [[ x"$todo" == x"false" ]]; then
-    blue "nothing to push"
+    colorize $BLUE "nothing to push"
     exit
 fi
 
 root_dir=$(dirname "$(realpath $0)")
-colorize $BLUE "$root_dir: git pushing..."
+colorize "$BLUE" "$root_dir: git pushing..."
 cd "$root_dir" || {
-    echo "$root_dir: not exists"
+    colorize "$RED" "$root_dir: not exists"
     exit
 }
 git add .
