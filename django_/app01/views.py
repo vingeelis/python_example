@@ -68,3 +68,63 @@ def test_ajax(request):
 
     return HttpResponse(json.dumps(ret))
 
+
+def app(request):
+    if request.method == "GET":
+        app_list = models.Application.objects.all()
+        host_list = models.Host.objects.all()
+
+        return render(request, 'app.html', {'app_list': app_list, 'host_list': host_list})
+    elif request.method == "POST":
+        app_name = request.POST.get('app_name')
+        host_list = request.POST.getlist('host_list')
+        a = models.Application.objects.create(name=app_name)
+        a.host.add(*host_list)
+
+        return redirect('/app')
+
+
+def ajax_add_app(request):
+    ret = {'status': True, 'error': None, 'data': None}
+    app_name = request.POST.get('app_name')
+    host_list = request.POST.getlist('host_list')
+    print(app_name)
+    print(host_list)
+    a = models.Application.objects.create(name=app_name)
+    a.host.add(*host_list)
+    return HttpResponse(json.dumps(ret))
+
+
+def teacher(request):
+    if request.method == 'GET':
+        teacher_list = models.Teacher.objects.all()
+        student_list = models.Student.objects.all()
+        return render(request, 'teacher.html', {'teacher_list': teacher_list, 'student_list': student_list, })
+    elif request.method == 'POST':
+        teacher_name = request.POST.get('teacher_name')
+        student_list = request.POST.getlist('student_list')
+        obj = models.Teacher.objects.create(name=teacher_name)
+        obj.student.add(*student_list)
+        return redirect('/teacher')
+
+
+def student(request):
+    if request.method == 'GET':
+        student_list = models.Student.objects.all()
+        teacher_list = models.Teacher.objects.all()
+        return render(request, 'student.html', {'student_list': student_list, 'teacher_list': teacher_list, })
+    elif request.method == 'POST':
+        students_name = request.POST.getlist('students_name')
+        teacher_list = request.POST.get('teacher_list')
+        obj = models.Student.objects.create(name=students_name)
+        obj.teacher.add(*teacher_list)
+        return redirect('/student', )
+
+
+def teacher_add_by_ajax(request):
+    ret = {'status': True, 'error': None, 'data': None}
+    teacher_name = request.POST.get('teacher_name')
+    student_list = request.POST.getlist('student_list')
+    obj = models.Teacher.objects.create(name=teacher_name)
+    obj.student.add(*student_list)
+    return HttpResponse(json.dumps(ret))

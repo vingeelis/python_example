@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .hide {
+            display: none;
+        }
+
+        .pane-shade {
+            position: fixed;
+            top: 0;
+            right: 0;
+            left: 0;
+            bottom: 0;
+            background: gray;
+            opacity: 0.6;
+            z-index: 99;
+        }
+
+        .pane-add, .pane-edit {
+            position: fixed;
+            height: 300px;
+            width: 400px;
+            top: 100px;
+            left: 50%;
+            z-index: 100;
+            border: 1px solid red;
+            background: white;
+            margin-left: -200px;
+        }
+
+        .span-tag {
+            display: inline-block;
+            padding: 3px;
+            border: 1px solid red;
+            background-color: palevioletred;
+        }
+    </style>
+</head>
+<body>
+
+<h1>teacher list</h1>
+<div>
+    <input id="add-teacher" type="button" value="add">
+</div>
+<table style="border: 1px">
+    <thead>
+    <tr>
+        <td>teacher name</td>
+        <td>student list</td>
+    </tr>
+    </thead>
+    <tbody>
+    {% for teacher in teacher_list %}
+        <tr>
+            <td>{{ teacher.name }}</td>
+            <td>
+                {% for student in teacher.student.all %}
+                    <span class="span-tag">{{ student.name }}</span>
+                {% endfor %}
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<div class="pane-shade hide"></div>
+
+<div class="pane-add hide">
+    <form id="form-add-teacher" method="POST" action="/teacher">
+        <div class="group">
+            <input id="teacher" type="text" placeholder="teacher name" name="teacher_name">
+        </div>
+
+        <div class="group">
+            <select id="student_list" name="student_list" multiple>
+                {% for student in student_list %}
+                    <option value="{{ student.id }}">{{ student.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <input type="submit" value="submit">
+        <input id="submit-by-ajax" type="button" value="ajax">
+        <input class="cancel" type="button" value="cancel">
+    </form>
+</div>
+
+
+<script src="/static/jquery-1.12.4.js"></script>
+<script>
+    $(function () {
+        $('.cancel').click(function () {
+            $('.pane-shade, .pane-add, .pane-edit').addClass('hide');
+        });
+
+        $('#add-teacher').click(function () {
+            $('.pane-shade, .pane-add').removeClass('hide');
+        });
+
+        $('#submit-by-ajax').click(function () {
+            $.ajax({
+                url: '/add_teacher_by_ajax',
+                data: $('#form-add-teacher').serialize(),
+                dataType: "JSON",
+                type: 'POST',
+                traditional: true,
+                success: function (obj) {
+                    console.log(obj);
+                },
+                error: function () {
+                }
+            })
+        });
+    })
+</script>
+</body>
+</html>

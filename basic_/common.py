@@ -1,6 +1,11 @@
 import functools
+import signal
 import sys
 import datetime
+import time
+from subprocess import Popen, PIPE
+
+import psutil as psutil
 
 
 def singleton(cls):
@@ -48,16 +53,35 @@ def epoch_to_human_readable(epoch_in_nanos):
           f"{str(nanos):>09}")
 
 
+def kill_process(max_retry, p_instance: psutil.Process, p_name, kill_process_retry_interval: int = 60):
+    if not p_instance:
+        return
+    count: int = 0
+    while psutil.Process(p_instance.pid).status() != psutil.STATUS_ZOMBIE:
+        p_instance.terminate()
+        time.sleep(kill_process_retry_interval)
+        if count % kill_process_retry_interval == 0:
+            print(f'terminating process: {p_name}')
+        count += 1
+        if count > max_retry:
+            print(f'reach max limitation of retries and failed to terminate process: {p_name}')
+            return
+
+    # clear the zombie
+    p_instance.kill()
+    p_instance = None
+    print(f'{p_name} is terminated')
+
+
+def sigterm(signum, frame):
+    if signum == signal.SIGTERM or signum == signal.SIGINT:
+        print('SIGTERM/SIGINT received, exiting...')
+        exit(0)
+
+
 def sig_reg():
-    import signal
-
-    def _sigterm(signum, frame):
-        if signum in (signal.SIGTERM, signal.SIGINT):
-            print("SIGTERM/SIGINT received, exiting...")
-            exit(0)
-
-    signal.signal(signal.SIGTERM, _sigterm)
-    signal.signal(signal.SIGINT, _sigterm)
+    signal.signal(signal.SIGTERM, sigterm)
+    signal.signal(signal.SIGINT, sigterm)
 
 
 def version_required():
@@ -93,10 +117,22 @@ def analyse_time():
     print(timeit(stmt='ver', setup='ver=version_required("3.8")', globals=globals()))
 
 
+def run_shell(command: str, tee_console=True, exit_if_failed=True, ):
+    process = Popen(command.split(), stdin=PIPE, stdout=PIPE, shell=True, )
+    stdout, stderr = process.communicate()
+    returncode = process.returncode
+    if tee_console:
+        print(stdout.decode())
+    if stderr:
+        print(stderr.decode())
+        if exit_if_failed:
+            exit(-1)
+    return returncode, stdout, stderr
+
+
 def __test_epoch_to_human_readable():
     epoch_to_human_readable(1575254030086532336)
 
 
 if __name__ == '__main__':
     __test_epoch_to_human_readable()
-

@@ -8,7 +8,7 @@
             display: none;
         }
 
-        .shade {
+        .pane-shade {
             position: fixed;
             top: 0;
             right: 0;
@@ -19,7 +19,7 @@
             z-index: 99;
         }
 
-        .add-modal, .edit-modal {
+        .pane-add, .pane-edit {
             position: fixed;
             height: 300px;
             width: 400px;
@@ -154,11 +154,11 @@
 <script>
     $(function () {
         $('#add_host').click(function () {
-            $('.shade, .add-modal').removeClass('hide');
+            $('.pane-shade, .pane-add').removeClass('hide');
         });
 
         $('.cancel').click(function () {
-            $('.shade, .add-modal, .edit-modal').addClass('hide');
+            $('.pane-shade, .pane-add, .pane-edit').addClass('hide');
         });
 
         $('#ajax_submit').click(function () {
@@ -180,7 +180,7 @@
         });
 
         $('.edit').click(function () {
-            $('.shade, .edit-modal').removeClass('hide');
+            $('.pane-shade, .pane-edit').removeClass('hide');
             var bid = $(this).parent().parent().attr('bid');
             var hid = $(this).parent().parent().attr('hid');
 
