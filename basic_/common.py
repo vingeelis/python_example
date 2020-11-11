@@ -130,9 +130,13 @@ def run_shell(command: str, tee_console=True, exit_if_failed=True, ):
     return returncode, stdout, stderr
 
 
-def __test_epoch_to_human_readable():
-    epoch_to_human_readable(1575254030086532336)
+def main():
+    if sys.version_info < (3, 8):
+        raise Exception("python version should be at least 3.8")
+
+    signal.signal(signal.SIGTERM, sigterm())
+    signal.signal(signal.SIGINT, sigterm())
 
 
 if __name__ == '__main__':
-    __test_epoch_to_human_readable()
+    epoch_to_human_readable(1575254030086532336)
