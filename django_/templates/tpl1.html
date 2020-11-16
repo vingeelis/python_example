@@ -1,0 +1,31 @@
+{% extends 'master.html' %}
+
+{% block title %}
+    user management
+{% endblock %}
+
+{% block body %}
+    <h1>user management</h1>
+    <ul>
+        {% for i in u %}
+            <li>{{ i }}</li>
+        {% endfor %}
+    </ul>
+    {% for i in u %}
+        {% include 'tag.html' %}
+    {% endfor %}
+{% endblock %}
+
+{% block css %}
+    <style>
+        body {
+            background-color: red;
+        }
+    </style>
+
+{% endblock %}
+
+{% block js %}
+    <script></script>
+
+{% endblock %}

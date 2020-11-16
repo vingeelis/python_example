@@ -1,7 +1,7 @@
 """django_ URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/2.2/topics/http/urls/
+    https://docs.djangoproject.com/en/3.1/topics/http/urls/
 Examples:
 Function views
     1. Add an import:  from my_app import views
@@ -14,14 +14,14 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, re_path
+from django.urls import path
 from app01 import views
 
-urlpatterns = {
+urlpatterns = [
     path('admin/', admin.site.urls),
-    re_path('business', views.business),
-    re_path('host', views.host),
-    re_path('test_ajax', views.test_ajax),
-    re_path('^app$', views.app),
-    re_path('^ajax_add_app$', views.ajax_add_app),
-}
+    path('master/', views.master),
+    path('tpl1/', views.tpl1),
+    path('tpl2/', views.tpl2),
+    path('tpl3/', views.tpl3),
+    path('tpl4/', views.tpl4),
+]
