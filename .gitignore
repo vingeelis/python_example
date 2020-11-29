@@ -133,3 +133,4 @@ dmypy.json
 .pyre/
 /scratch/
 /cassinfra/
+/django_/

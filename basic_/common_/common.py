@@ -1,7 +1,13 @@
+import inspect
 import os
 
 
+def whoami():
+    return inspect.stack()[1][3]
+
+
 def is_root(exit_if_failed=True):
+    print(whoami())
     if os.geteuid() == 0:
         return True
     elif os.geteuid() != 0:
