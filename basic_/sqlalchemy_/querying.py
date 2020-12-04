@@ -1,3 +1,4 @@
+import app01.forms
 from basic_.sqlalchemy_.schemas import User, Database, horizontal_rule
 from sqlalchemy.orm import aliased
 
@@ -15,7 +16,7 @@ horizontal_rule()
 
 # tuples
 for row in session.query(User, User.name).all():
-    print(row.User, row.name)
+    print(app01.forms.User, row.name)
 
 horizontal_rule()
 
